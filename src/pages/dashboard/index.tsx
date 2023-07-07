@@ -1,20 +1,8 @@
+import AuthLayout from "@/lib/auth/AuthLayout";
 import React from "react";
-import {
-  useAuthUser,
-  withAuthUser,
-  withAuthUserTokenSSR,
-} from "next-firebase-auth";
 
 const Dashboard = () => {
-  const AuthUser = useAuthUser();
-  return (
-    <div>
-      <p>Your email is {AuthUser.email ? AuthUser.email : "unknown"}.</p>
-    </div>
-  );
+  return <AuthLayout>Dashbaord</AuthLayout>;
 };
 
-// Note that this is a higher-order function.
-export const getServerSideProps = withAuthUserTokenSSR()();
-
-export default withAuthUser()(Dashboard);
+export default Dashboard;
