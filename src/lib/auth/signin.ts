@@ -4,6 +4,7 @@ import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 const auth = getAuth(firebase_app);
 
 export default async function signin(email: string, password: string) {
+
   let result = null,
     error = null;
   try {
