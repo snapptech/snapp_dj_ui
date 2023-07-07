@@ -19,7 +19,7 @@ export const getUser = async (id: string) => {
   let error = null;
 
   try {
-    result = await getDoc(docRef);
+    result = (await getDoc(docRef)).data() as User;
   } catch (e) {
     error = e;
   }
@@ -27,7 +27,10 @@ export const getUser = async (id: string) => {
   return { result, error };
 };
 
-export const saveUser = async (id: string, data: User) => {
+export const updateUser = async (
+  id: string,
+  data: Partial<User>
+) => {
   let result = null;
   let error = null;
 
