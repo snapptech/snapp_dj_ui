@@ -176,19 +176,21 @@ const Profile = () => {
             leftTitle="Request(s)"
             leftValue={completedRequests.length}
             rightTitle="Earnings"
-            rightValue={`€ ${amountEarned}`}
+            rightValue={`€ ${(amountEarned / 100)
+              .toFixed(2)
+              .replace(".", ",")}`}
           />
         </div>
         <ProfileForm setUserProfile={setUserProfile} authUser={authUser} />
         <p className="text-bold pt-3">
           Print QR-code:
-          <Link href="/dj/code" className="underline">
+          <Link href="/dj/code" className="ml-1 underline">
             click here
           </Link>
         </p>
         <p className="text-bold pt-3">
           Your music library:
-          <Link href="/dj/code" className="underline">
+          <Link href="/dj/code" className="ml-1 underline">
             click here
           </Link>
         </p>

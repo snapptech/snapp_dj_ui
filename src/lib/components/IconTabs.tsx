@@ -5,9 +5,10 @@ export type IIconTabs = {
   selectedTab?: "profile" | "home" | "library";
 };
 
-export const IconTabs = ({ selectedTab }: IIconTabs) => {
-  return (
-    <nav className="flex justify-center">
+export const IconTabs = ({ selectedTab }: IIconTabs) => (
+  <>
+    <div className="w-full h-20" />
+    <nav className="h-20 fixed bottom-0 inset-x-0 flex justify-center">
       <ul className="flex gap-12 items-end">
         <li>
           <Link
@@ -94,5 +95,5 @@ export const IconTabs = ({ selectedTab }: IIconTabs) => {
         </li>
       </ul>
     </nav>
-  );
-};
+  </>
+);

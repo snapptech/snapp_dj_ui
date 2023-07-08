@@ -39,11 +39,18 @@ const SongPage = () => {
   );
   const onSubmit = useCallback(
     async (request: RequestData) => {
-      const { result } = await addRequest(request);
+      const { result } = await addRequest({
+        ...request,
+        status: "pending",
+        userId: String(dj_id),
+        createdAt: new Date().getTime(),
+      });
       const request_id = result?.id;
-      push(`/user/qr/request?dj_id=${dj_id}&song_id=${rawSongId}&request_id=${request_id}`);
+      push(
+        `/user/qr/request?dj_id=${dj_id}&song_id=${rawSongId}&request_id=${request_id}`
+      );
     },
-    [push]
+    [dj_id, push, rawSongId]
   );
 
   useEffect(() => {
@@ -70,8 +77,12 @@ const SongPage = () => {
         className="rounded mb-4"
         alt={song?.title}
       />
-      <p className="text-center w-full text-2xl font-sf-pro font-bold mb-1">{song.title}</p>
-      <p className="text-center w-full text-lg font-sf-pro font-medium mb-5">{song.artist}</p>
+      <p className="text-center w-full text-2xl font-sf-pro font-bold mb-1">
+        {song.title}
+      </p>
+      <p className="text-center w-full text-lg font-sf-pro font-medium mb-5">
+        {song.artist}
+      </p>
       <p className="text-2xl font-sf-pro font-light mb-5">
         €{(amount / 100).toFixed(2).replace(".", ",")}
       </p>
