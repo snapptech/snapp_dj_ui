@@ -1,552 +1,394 @@
 {
-    "songs": [
-        {
-            "rank": 1,
-            "title": "Like a Rolling Stone",
-            "artist": "Bob Dylan",
-            "album": "Highway 61 Revisited",
-            "year": "1965"
-        },
-        {
-            "rank": 2,
-            "title": "(I Can't Get No) Satisfaction",
-            "artist": "The Rolling Stones",
-            "album": "Out of Our Heads",
-            "year": "1965"
-        },
-        {
-            "rank": 3,
-            "title": "Imagine",
-            "artist": "John Lennon",
-            "album": "Imagine",
-            "year": "1971"
-        },
-        {
-            "rank": 4,
-            "title": "What's Going On",
-            "artist": "Marvin Gaye",
-            "album": "What's Going On",
-            "year": "1971"
-        },
-        {
-            "rank": 5,
-            "title": "Respect",
-            "artist": "Aretha Franklin",
-            "album": "I Never Loved a Man the Way I Love You",
-            "year": "1967"
-        },
-        {
-            "rank": 6,
-            "title": "Good Vibrations",
-            "artist": "The Beach Boys",
-            "album": "Smiley Smile/Wild Honey",
-            "year": "1966"
-        },
-        {
-            "rank": 7,
-            "title": "Johnny B. Goode",
-            "artist": "Chuck Berry",
-            "album": "The Anthology",
-            "year": "1958"
-        },
-        {
-            "rank": 8,
-            "title": "Hey Jude",
-            "artist": "The Beatles",
-            "album": "Hey Jude",
-            "year": "1968"
-        },
-        {
-            "rank": 9,
-            "title": "Smells Like Teen Spirit",
-            "artist": "Nirvana",
-            "album": "Nevermind",
-            "year": "1991"
-        },
-        {
-            "rank": 10,
-            "title": "What'd I Say",
-            "artist": "Ray Charles",
-            "album": "What'd I Say",
-            "year": "1959"
-        },
-        {
-            "rank": 11,
-            "title": "My Generation",
-            "artist": "The Who",
-            "album": "My Generation",
-            "year": "1965"
-        },
-        {
-            "rank": 12,
-            "title": "A Change Is Gonna Come",
-            "artist": "Sam Cooke",
-            "album": "Portrait of a Legend 1951-1964",
-            "year": "1964"
-        },
-        {
-            "rank": 13,
-            "title": "Yesterday",
-            "artist": "The Beatles",
-            "album": "Help!",
-            "year": "1965"
-        },
-        {
-            "rank": 14,
-            "title": "Blowin' in the Wind",
-            "artist": "Bob Dylan",
-            "album": "The Freewheelin' Bob Dylan",
-            "year": "1963"
-        },
-        {
-            "rank": 15,
-            "title": "London Calling",
-            "artist": "The Clash",
-            "album": "London Calling",
-            "year": "1980"
-        },
-        {
-            "rank": 16,
-            "title": "I Want to Hold Your Hand",
-            "artist": "The Beatles",
-            "album": "Meet the Beatles!",
-            "year": "1963"
-        },
-        {
-            "rank": 17,
-            "title": "Purple Haze",
-            "artist": "The Jimi Hendrix Experience",
-            "album": "Are You Experienced?",
-            "year": "1967"
-        },
-        {
-            "rank": 18,
-            "title": "Maybellene",
-            "artist": "Chuck Berry",
-            "album": "The Anthology",
-            "year": "1955"
-        },
-        {
-            "rank": 19,
-            "title": "Hound Dog",
-            "artist": "Elvis Presley",
-            "album": " Elvis 30 #1 Hits",
-            "year": "1956"
-        },
-        {
-            "rank": 20,
-            "title": "Let It Be",
-            "artist": "The Beatles",
-            "album": "Let It Be",
-            "year": "1970"
-        },
-        {
-            "rank": 21,
-            "title": "Born to Run",
-            "artist": "Bruce Springsteen",
-            "album": "Born to Run",
-            "year": "1975"
-        },
-        {
-            "rank": 22,
-            "title": "Be My Baby",
-            "artist": "The Ronettes",
-            "album": "The Best of the Ronettes",
-            "year": "1963"
-        },
-        {
-            "rank": 23,
-            "title": "In My Life",
-            "artist": "The Beatles",
-            "album": "Rubber Soul",
-            "year": "1965"
-        },
-        {
-            "rank": 24,
-            "title": "People Get Ready",
-            "artist": "The Impressions",
-            "album": "The Very Best of the Impressions",
-            "year": "1965"
-        },
-        {
-            "rank": 25,
-            "title": "God Only Knows",
-            "artist": "The Beach Boys",
-            "album": "Pet Sounds",
-            "year": "1966"
-        },
-        {
-            "rank": 26,
-            "title": "(Sittin' On) The Dock of the Bay",
-            "artist": "Otis Redding",
-            "album": "The Dock of the Bay",
-            "year": "1968"
-        },
-        {
-            "rank": 27,
-            "title": "Layla",
-            "artist": "Derek and the Dominos",
-            "album": "Layla And Other Assorted Love Songs",
-            "year": "1970"
-        },
-        {
-            "rank": 28,
-            "title": "A Day in the Life",
-            "artist": "The Beatles",
-            "album": "Sgt. Pepper's Lonely Hearts Club Band",
-            "year": "1967"
-        },
-        {
-            "rank": 29,
-            "title": "Help!",
-            "artist": "The Beatles",
-            "album": "Help!",
-            "year": "1965"
-        },
-        {
-            "rank": 30,
-            "title": "I Walk the Line",
-            "artist": "Johnny Cash",
-            "album": "The Complete Original Sun Singles",
-            "year": "1956"
-        },
-        {
-            "rank": 31,
-            "title": "Stairway to Heaven",
-            "artist": "Led Zeppelin",
-            "album": "Led Zeppelin IV",
-            "year": "1971"
-        },
-        {
-            "rank": 32,
-            "title": "Sympathy for the Devil",
-            "artist": "The Rolling Stones",
-            "album": "Beggars Banquet",
-            "year": "1968"
-        },
-        {
-            "rank": 33,
-            "title": "River Deep - Mountain High",
-            "artist": "Ike & Tina Turner",
-            "album": "Proud Mary: The Best of Ike and Tina Turner",
-            "year": "1966"
-        },
-        {
-            "rank": 34,
-            "title": "You've Lost That Lovin' Feelin'",
-            "artist": "The Righteous Brothers",
-            "album": "Anthology 1962-1974",
-            "year": "1964"
-        },
-        {
-            "rank": 35,
-            "title": "Light My Fire",
-            "artist": "The Doors",
-            "album": "The Doors",
-            "year": "1967"
-        },
-        {
-            "rank": 36,
-            "title": "One",
-            "artist": "U2",
-            "album": "Achtung Baby",
-            "year": "1991"
-        },
-        {
-            "rank": 37,
-            "title": "No Woman, No Cry",
-            "artist": "Bob Marley & The Wailers",
-            "album": "Natty Dread",
-            "year": "1975"
-        },
-        {
-            "rank": 38,
-            "title": "Gimme Shelter",
-            "artist": "The Rolling Stones",
-            "album": "Let It Bleed",
-            "year": "1969"
-        },
-        {
-            "rank": 39,
-            "title": "That'll Be the Day",
-            "artist": "Buddy Holly & The Crickets",
-            "album": "Greatest Hits",
-            "year": "1957"
-        },
-        {
-            "rank": 40,
-            "title": "Dancing in the Street",
-            "artist": "Martha and the Vandellas",
-            "album": "The Ultimate Collection",
-            "year": "1964"
-        },
-        {
-            "rank": 41,
-            "title": "The Weight",
-            "artist": "The Band",
-            "album": "Music From Big Pink",
-            "year": "1968"
-        },
-        {
-            "rank": 42,
-            "title": "Waterloo Sunset",
-            "artist": "The Kinks",
-            "album": "Something Else By The Kinks",
-            "year": "1968"
-        },
-        {
-            "rank": 43,
-            "title": "Tutti-Frutti",
-            "artist": "Little Richard",
-            "album": "The Georgia Peach",
-            "year": "1956"
-        },
-        {
-            "rank": 44,
-            "title": "Georgia On My Mind",
-            "artist": "Ray Charles",
-            "album": "Ultimate Hits Collection",
-            "year": "1960"
-        },
-        {
-            "rank": 45,
-            "title": "Heartbreak Hotel",
-            "artist": "Elvis Presley",
-            "album": "Elvis 30 #1 Hits",
-            "year": "1956"
-        },
-        {
-            "rank": 46,
-            "title": "Heroes",
-            "artist": "David Bowie",
-            "album": "Heroes",
-            "year": "1977"
-        },
-        {
-            "rank": 47,
-            "title": "All Along the Watchtower",
-            "artist": "The Jimi Hendrix Experience",
-            "album": "Electric Ladyland",
-            "year": "1968"
-        },
-        {
-            "rank": 48,
-            "title": "Bridge Over Troubled Water",
-            "artist": "Simon & Garfunkel",
-            "album": "Bridge Over Troubled Water",
-            "year": "1970"
-        },
-        {
-            "rank": 49,
-            "title": "Hotel California",
-            "artist": "Eagles",
-            "album": "Hotel California",
-            "year": "1976"
-        },
-        {
-            "rank": 50,
-            "title": "The Tracks Of My Tears",
-            "artist": "Smokey Robinson and the Miracles",
-            "album": "Going to a Go-Go",
-            "year": "1965"
-        },
-        {
-            "rank": 51,
-            "title": "The Message",
-            "artist": "Grandmaster Flash and the Furious Five",
-            "album": "The Best of Sugar Hill Records",
-            "year": "1980"
-        },
-        {
-            "rank": 52,
-            "title": "When Doves Cry",
-            "artist": "Prince and The Revolution",
-            "album": "Purple Rain",
-            "year": "1984"
-        },
-        {
-            "rank": 53,
-            "title": "When A Man Loves A Woman",
-            "artist": "Percy Sledge",
-            "album": "It Tears Me Up: The Best of Percy Sledge",
-            "year": "1966"
-        },
-        {
-            "rank": 54,
-            "title": "Louie Louie",
-            "artist": "The Kingsmen",
-            "album": "The Best of the Kingsmen",
-            "year": "1963"
-        },
-        {
-            "rank": 55,
-            "title": "Long Tall Sally",
-            "artist": "Little Richard",
-            "album": "The Georgia Peach",
-            "year": "1956"
-        },
-        {
-            "rank": 56,
-            "title": "Anarchy in the U.K.",
-            "artist": "Sex Pistols",
-            "album": "Never Mind the Bollocks, Here's the Sex Pistols",
-            "year": "1976"
-        },
-        {
-            "rank": 57,
-            "title": "A Whiter Shade of Pale",
-            "artist": "Procol Harum",
-            "album": "Greatest Hits",
-            "year": "1967"
-        },
-        {
-            "rank": 58,
-            "title": "Billie Jean",
-            "artist": "Michael Jackson",
-            "album": "Thriller",
-            "year": "1983"
-        },
-        {
-            "rank": 59,
-            "title": "The Times They Are a-Changin'",
-            "artist": "Bob Dylan",
-            "album": "The Times They Are A-Changin'",
-            "year": "1964"
-        },
-        {
-            "rank": 60,
-            "title": "Let's Stay Together",
-            "artist": "Al Green",
-            "album": "Let's Stay Together",
-            "year": "1971"
-        },
-        {
-            "rank": 61,
-            "title": "Whole Lotta Shakin' Going On",
-            "artist": "Jerry Lee Lewis",
-            "album": "Original Sun Greatest Hits",
-            "year": "1957"
-        },
-        {
-            "rank": 62,
-            "title": "Bo Diddley",
-            "artist": "Bo Diddley",
-            "album": "His Best: The Chess 50th Anniversary Collection",
-            "year": "1955"
-        },
-        {
-            "rank": 63,
-            "title": "For What It's Worth",
-            "artist": "Buffalo Springfield",
-            "album": "Buffalo Springfield",
-            "year": "1967"
-        },
-        {
-            "rank": 64,
-            "title": "She Loves You",
-            "artist": "The Beatles",
-            "album": "The Beatles 1",
-            "year": "1963"
-        },
-        {
-            "rank": 65,
-            "title": "Sunshine of Your Love",
-            "artist": "Cream",
-            "album": "Disraeli Gears",
-            "year": "1968"
-        },
-        {
-            "rank": 66,
-            "title": "Redemption Song",
-            "artist": "Bob Marley & The Wailers",
-            "album": "Uprising",
-            "year": "1980"
-        },
-        {
-            "rank": 67,
-            "title": "Jailhouse Rock",
-            "artist": "Elvis Presley",
-            "album": "Elvis 30 #1 Hits",
-            "year": "1957"
-        },
-        {
-            "rank": 68,
-            "title": "Tangled Up in Blue",
-            "artist": "Bob Dylan",
-            "album": "Blood on the Tracks",
-            "year": "1975"
-        },
-        {
-            "rank": 69,
-            "title": "Crying",
-            "artist": "Roy Orbison",
-            "album": "For the Lonely: 18 Greatest Hits",
-            "year": "1961"
-        },
-        {
-            "rank": 70,
-            "title": "Walk On By",
-            "artist": "Dionne Warwick",
-            "album": "The Dionne Warwick Collection: Her All-Time Greatest Hits",
-            "year": "1964"
-        },
-        {
-            "rank": 71,
-            "title": "Papa's Got a Brand New Bag",
-            "artist": "James Brown",
-            "album": "50th Anniversary Collection",
-            "year": "1966"
-        },
-        {
-            "rank": 72,
-            "title": "California Girls",
-            "artist": "The Beach Boys",
-            "album": "Sounds of Summer: The Very Best of the Beach Boys",
-            "year": "1965"
-        },
-        {
-            "rank": 73,
-            "title": "Superstition",
-            "artist": "Stevie Wonder",
-            "album": "Talking Book",
-            "year": "1973"
-        },
-        {
-            "rank": 74,
-            "title": "Summertime Blues",
-            "artist": "Eddie Cochran",
-            "album": "Somethin' Else",
-            "year": "1958"
-        },
-        {
-            "rank": 75,
-            "title": "Whole Lotta Love",
-            "artist": "Led Zeppelin",
-            "album": "Led Zeppelin II",
-            "year": "1969"
-        },
-        {
-            "rank": 76,
-            "title": "Strawberry Fields Forever",
-            "artist": "The Beatles",
-            "album": "Magical Mystery Tour",
-            "year": "1967"
-        },
-        {
-            "rank": 77,
-            "title": "Mystery Train",
-            "artist": "Elvis Presley",
-            "album": "Sunrise",
-            "year": "1955"
-        },
-        {
-            "rank": 78,
-            "title": "I Got You (I Feel Good)",
-            "artist": "James Brown",
-            "album": "James Brown 50th Anniversary Collection",
-            "year": "1966"
-        }
-     
-    
-    ]
+  "songs": [
+    {
+      "title": "Like a Rolling Stone",
+      "artist": "Bob Dylan",
+      "uuid": "4dd97baf-f649-4919-b146-963f829ea013"
+    },
+    {
+      "title": "(I Can't Get No) Satisfaction",
+      "artist": "The Rolling Stones",
+      "uuid": "e08443e9-0350-48e0-a791-0c98dd2f3bf0"
+    },
+    {
+      "title": "Imagine",
+      "artist": "John Lennon",
+      "uuid": "0c1c49c2-0a4f-4b0c-b78c-813852e2af20"
+    },
+    {
+      "title": "What's Going On",
+      "artist": "Marvin Gaye",
+      "uuid": "8415b973-0a2f-41cf-a2ef-14d896ec3bd0"
+    },
+    {
+      "title": "Respect",
+      "artist": "Aretha Franklin",
+      "uuid": "4c9972bd-094f-4f6b-8cf1-00ca49efb529"
+    },
+    {
+      "title": "Good Vibrations",
+      "artist": "The Beach Boys",
+      "uuid": "1208f757-b182-4d23-9bd3-5cc362c23266"
+    },
+    {
+      "title": "Johnny B. Goode",
+      "artist": "Chuck Berry",
+      "uuid": "8d194a35-62b7-412b-8fc8-0a526b27feed"
+    },
+    {
+      "title": "Hey Jude",
+      "artist": "The Beatles",
+      "uuid": "7ca85652-1de2-4faa-b451-3066a1b1b334"
+    },
+    {
+      "title": "Smells Like Teen Spirit",
+      "artist": "Nirvana",
+      "uuid": "9cc6d50e-61a6-40fb-a49d-512b16b5a3aa"
+    },
+    {
+      "title": "What'd I Say",
+      "artist": "Ray Charles",
+      "uuid": "359b2b61-ea9a-4537-aa55-1123f24e6d65"
+    },
+    {
+      "title": "My Generation",
+      "artist": "The Who",
+      "uuid": "2271d125-a56b-4642-8aeb-fb05df85aaa0"
+    },
+    {
+      "title": "A Change Is Gonna Come",
+      "artist": "Sam Cooke",
+      "uuid": "b8d78400-86a7-4119-a867-30e3254acbf7"
+    },
+    {
+      "title": "Yesterday",
+      "artist": "The Beatles",
+      "uuid": "5f328bed-cca3-4cff-993b-566650b076db"
+    },
+    {
+      "title": "Blowin' in the Wind",
+      "artist": "Bob Dylan",
+      "uuid": "b857ccf9-5682-43eb-a0e0-8efd3d006933"
+    },
+    {
+      "title": "London Calling",
+      "artist": "The Clash",
+      "uuid": "2f0877c2-797b-46de-964a-62297d868a0b"
+    },
+    {
+      "title": "I Want to Hold Your Hand",
+      "artist": "The Beatles",
+      "uuid": "a9edece0-2c3f-4424-b7a4-c0dc98752b0c"
+    },
+    {
+      "title": "Purple Haze",
+      "artist": "The Jimi Hendrix Experience",
+      "uuid": "f16f0035-e350-4bd2-80eb-fcb1bbcda2c7"
+    },
+    {
+      "title": "Maybellene",
+      "artist": "Chuck Berry",
+      "uuid": "569f0143-c683-4c8c-be35-df9ee3ae3418"
+    },
+    {
+      "title": "Hound Dog",
+      "artist": "Elvis Presley",
+      "uuid": "04ded897-3c3c-4e3e-91c1-a1114f7c9b02"
+    },
+    {
+      "title": "Let It Be",
+      "artist": "The Beatles",
+      "uuid": "59cf5496-6a3b-4cc6-b892-d28564a3b944"
+    },
+    {
+      "title": "Born to Run",
+      "artist": "Bruce Springsteen",
+      "uuid": "46eb1f4d-aac3-46fe-86e9-8b8c1744d15e"
+    },
+    {
+      "title": "Be My Baby",
+      "artist": "The Ronettes",
+      "uuid": "e141bff3-771c-43ff-8b1f-c76f0ed1c0eb"
+    },
+    {
+      "title": "In My Life",
+      "artist": "The Beatles",
+      "uuid": "8f513ebb-aa41-452b-94fd-e367266670f8"
+    },
+    {
+      "title": "People Get Ready",
+      "artist": "The Impressions",
+      "uuid": "9078c3ba-6a4b-4882-ac04-d2ab2fb7037e"
+    },
+    {
+      "title": "God Only Knows",
+      "artist": "The Beach Boys",
+      "uuid": "053ddd06-0730-4f39-9230-7db8be32e123"
+    },
+    {
+      "title": "(Sittin' On) The Dock of the Bay",
+      "artist": "Otis Redding",
+      "uuid": "04f7425f-1bd1-456a-a4d9-eef73568eae5"
+    },
+    {
+      "title": "Layla",
+      "artist": "Derek and the Dominos",
+      "uuid": "40c42dc7-6284-4649-9161-341c0911357f"
+    },
+    {
+      "title": "A Day in the Life",
+      "artist": "The Beatles",
+      "uuid": "2ade3c73-edcf-481e-a68f-9f1cc79821c8"
+    },
+    {
+      "title": "Help!",
+      "artist": "The Beatles",
+      "uuid": "cc7b9afb-e0fd-4108-9bc4-4a2859b4e02f"
+    },
+    {
+      "title": "I Walk the Line",
+      "artist": "Johnny Cash",
+      "uuid": "e62f6cb9-7e2b-4025-96cf-ea509ae8d2fc"
+    },
+    {
+      "title": "Stairway to Heaven",
+      "artist": "Led Zeppelin",
+      "uuid": "05ab0e46-2768-49e4-ad47-c5ad04b1ffee"
+    },
+    {
+      "title": "Sympathy for the Devil",
+      "artist": "The Rolling Stones",
+      "uuid": "febafb6e-0440-4157-95e0-6484a8cbfa24"
+    },
+    {
+      "title": "River Deep - Mountain High",
+      "artist": "Ike & Tina Turner",
+      "uuid": "abe6f66b-17c6-47c7-a320-54c59ce3d99e"
+    },
+    {
+      "title": "You've Lost That Lovin' Feelin'",
+      "artist": "The Righteous Brothers",
+      "uuid": "96b1a901-d5aa-4202-b9fb-eacd4aa57d00"
+    },
+    {
+      "title": "Light My Fire",
+      "artist": "The Doors",
+      "uuid": "9e7f6fa5-2f7f-4b7f-b41c-ff05f76b0156"
+    },
+    {
+      "title": "One",
+      "artist": "U2",
+      "uuid": "d967f6e1-8a46-460d-a043-31a81ae3c126"
+    },
+    {
+      "title": "No Woman, No Cry",
+      "artist": "Bob Marley & The Wailers",
+      "uuid": "d6423e6a-fa79-4220-8b90-0966e082b3ed"
+    },
+    {
+      "title": "Gimme Shelter",
+      "artist": "The Rolling Stones",
+      "uuid": "d5662c1d-e965-420c-be5c-17d67c4841ed"
+    },
+    {
+      "title": "That'll Be the Day",
+      "artist": "Buddy Holly & The Crickets",
+      "uuid": "cd2be6d8-ca35-4a95-8518-ed2048255e91"
+    },
+    {
+      "title": "Dancing in the Street",
+      "artist": "Martha and the Vandellas",
+      "uuid": "05171d33-78c7-4bff-a98e-63689e44afde"
+    },
+    {
+      "title": "The Weight",
+      "artist": "The Band",
+      "uuid": "e29794b4-4bd4-47da-ad7f-4969e03ba779"
+    },
+    {
+      "title": "Waterloo Sunset",
+      "artist": "The Kinks",
+      "uuid": "dc405cbf-60f1-4dc7-a57a-105074d41639"
+    },
+    {
+      "title": "Tutti-Frutti",
+      "artist": "Little Richard",
+      "uuid": "1c7ef6d9-ce69-4d6b-9ef8-b60530298992"
+    },
+    {
+      "title": "Georgia On My Mind",
+      "artist": "Ray Charles",
+      "uuid": "0aed6196-b302-4cf7-9881-4f94af435310"
+    },
+    {
+      "title": "Heartbreak Hotel",
+      "artist": "Elvis Presley",
+      "uuid": "7adc27e0-8c20-435c-b9c4-5bbcab22c57f"
+    },
+    {
+      "title": "Heroes",
+      "artist": "David Bowie",
+      "uuid": "b8f908e3-1c0d-4133-81cf-8bea68c7461e"
+    },
+    {
+      "title": "All Along the Watchtower",
+      "artist": "The Jimi Hendrix Experience",
+      "uuid": "1356502a-1f97-4ebf-a79e-870875ebf2ec"
+    },
+    {
+      "title": "Bridge Over Troubled Water",
+      "artist": "Simon & Garfunkel",
+      "uuid": "2cc4dc77-7421-4d22-bcdc-44475902f808"
+    },
+    {
+      "title": "Hotel California",
+      "artist": "Eagles",
+      "uuid": "660807a9-67ec-4b4c-8a6e-b546d87f163f"
+    },
+    {
+      "title": "The Tracks Of My Tears",
+      "artist": "Smokey Robinson and the Miracles",
+      "uuid": "1825d559-ba02-4f50-883e-f93ffe83154b"
+    },
+    {
+      "title": "The Message",
+      "artist": "Grandmaster Flash and the Furious Five",
+      "uuid": "184ec626-9615-4aee-91cf-dd1af8c8fb6f"
+    },
+    {
+      "title": "When Doves Cry",
+      "artist": "Prince and The Revolution",
+      "uuid": "45708326-d8f7-4303-9395-e0fd21c43073"
+    },
+    {
+      "title": "When A Man Loves A Woman",
+      "artist": "Percy Sledge",
+      "uuid": "9418ea48-fef8-4812-9cc9-b3716a4f9146"
+    },
+    {
+      "title": "Louie Louie",
+      "artist": "The Kingsmen",
+      "uuid": "1f316a85-2e2b-4d94-a7fd-bb0aa40b1544"
+    },
+    {
+      "title": "Long Tall Sally",
+      "artist": "Little Richard",
+      "uuid": "571979a0-5277-4659-a3ab-560525672ed5"
+    },
+    {
+      "title": "Anarchy in the U.K.",
+      "artist": "Sex Pistols",
+      "uuid": "a3344394-7882-4d23-b983-c88c86d9266f"
+    },
+    {
+      "title": "A Whiter Shade of Pale",
+      "artist": "Procol Harum",
+      "uuid": "abe6cb11-aeba-44c8-b873-2984c255454b"
+    },
+    {
+      "title": "Billie Jean",
+      "artist": "Michael Jackson",
+      "uuid": "ff9aab29-fe47-4c46-a132-be4bdda8fdc8"
+    },
+    {
+      "title": "The Times They Are a-Changin'",
+      "artist": "Bob Dylan",
+      "uuid": "43ec0728-86a0-429f-865d-b55f2aa29e7a"
+    },
+    {
+      "title": "Let's Stay Together",
+      "artist": "Al Green",
+      "uuid": "ae75f60e-de97-417c-8ab5-4bf1c1612021"
+    },
+    {
+      "title": "Whole Lotta Shakin' Going On",
+      "artist": "Jerry Lee Lewis",
+      "uuid": "d7ef2673-8639-4dc0-9192-237f0048ebea"
+    },
+    {
+      "title": "Bo Diddley",
+      "artist": "Bo Diddley",
+      "uuid": "0de65a51-30ba-4d5b-9ecd-98dee6a29186"
+    },
+    {
+      "title": "For What It's Worth",
+      "artist": "Buffalo Springfield",
+      "uuid": "97b2358b-133a-4da6-a6dd-fc90716546f5"
+    },
+    {
+      "title": "She Loves You",
+      "artist": "The Beatles",
+      "uuid": "df5c5d9e-8b80-4279-b2ae-9665f1f961c4"
+    },
+    {
+      "title": "Sunshine of Your Love",
+      "artist": "Cream",
+      "uuid": "ebe56f28-b86d-49b3-b598-9a21dd75b70b"
+    },
+    {
+      "title": "Redemption Song",
+      "artist": "Bob Marley & The Wailers",
+      "uuid": "f0ed81f0-292a-484f-b803-025cdee98fc9"
+    },
+    {
+      "title": "Jailhouse Rock",
+      "artist": "Elvis Presley",
+      "uuid": "5639f36c-b470-4088-a6eb-839ecdf894f3"
+    },
+    {
+      "title": "Tangled Up in Blue",
+      "artist": "Bob Dylan",
+      "uuid": "8b2b9d08-f1fe-4d87-8858-0008790d4474"
+    },
+    {
+      "title": "Crying",
+      "artist": "Roy Orbison",
+      "uuid": "29818dcb-d43b-448d-adaf-d5ad99b09027"
+    },
+    {
+      "title": "Walk On By",
+      "artist": "Dionne Warwick",
+      "uuid": "0365c22f-b3c1-40e6-bf29-a60b6ad812cd"
+    },
+    {
+      "title": "Papa's Got a Brand New Bag",
+      "artist": "James Brown",
+      "uuid": "b94b37cd-b563-4ea5-9209-dce46665a50c"
+    },
+    {
+      "title": "California Girls",
+      "artist": "The Beach Boys",
+      "uuid": "5e4c5831-cd1c-4f60-a56b-ada1d3f42e3c"
+    },
+    {
+      "title": "Superstition",
+      "artist": "Stevie Wonder",
+      "uuid": "4cf368d3-ea54-418f-8b54-921eea6f133b"
+    },
+    {
+      "title": "Summertime Blues",
+      "artist": "Eddie Cochran",
+      "uuid": "3bbd50fc-5b69-4902-a8ad-8bee84e4b74e"
+    },
+    {
+      "title": "Whole Lotta Love",
+      "artist": "Led Zeppelin",
+      "uuid": "00d297cb-a3f5-4334-b7da-6f51f2caab33"
+    },
+    {
+      "title": "Strawberry Fields Forever",
+      "artist": "The Beatles",
+      "uuid": "0ba6bf67-55c6-4196-a4fa-2e1bbfb8c7b7"
+    },
+    {
+      "title": "Mystery Train",
+      "artist": "Elvis Presley",
+      "uuid": "0871595f-155b-47ac-a484-89f178aad7e7"
+    },
+    {
+      "title": "I Got You (I Feel Good)",
+      "artist": "James Brown",
+      "uuid": "2b14f88d-5b6f-4714-8700-bed50ae0f099"
+    }
+  ]
 }
