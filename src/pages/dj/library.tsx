@@ -26,17 +26,21 @@ const Library = () => {
   const addToLibrary = async (song: Song) => {
     if (!user) return;
 
-    await addUpdateSong(song.uuid, { ...song, songId: song.uuid, userId: user.uid });
-    
+    await addUpdateSong(song.uuid, {
+      ...song,
+      songId: song.uuid,
+      userId: user.uid,
+    });
+
     setLibrary((prev) => [
       ...prev,
       { ...song, songId: song.uuid, userId: user?.uid } as LibraryData,
     ]);
   };
-  
+
   const removeFromLibrary = async (song: LibraryData) => {
     if (!user) return;
-    
+
     await removeSong(song.songId);
     setLibrary((prev) => prev.filter((s) => s.songId !== song.songId));
   };
@@ -62,10 +66,11 @@ const Library = () => {
       <AnimatePresence>
         {tab === "search" && (
           <motion.div
-            initial={{ height: 0 }}
-            animate={{ height: "auto" }}
-            exit={{ height: 0 }}
+            initial={{ y: -16, opacity: 0, scale: 0.8, height: 0 }}
+            animate={{ y: 0, opacity: 1, scale: 1, height: "auto" }}
+            exit={{ y: -16, opacity: 0, scale: 0.8, height: 0 }}
             className="overflow-hidden"
+            transition={{ ease: "easeInOut" }}
           >
             <div className="my-16 text-center px-8">
               <p className="">
