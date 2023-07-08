@@ -16,7 +16,7 @@ function Page() {
 
     // else successful
     console.log(result);
-    return router.push("/dashboard");
+    return router.push("/dj");
   };
   return (
     <div className="wrapper">
