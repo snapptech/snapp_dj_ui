@@ -32,7 +32,7 @@ const ProfileForm = () => {
 
 const Profile = () => {
   return (
-    <div className="px-5 py-2">
+    <div className="px-5 py-2 min-h-screen flex flex-col justify-between">
       <div>
         <div className="text-center">
           <p>Profile</p>
