@@ -3,10 +3,12 @@ import { IconTabs } from "@/lib/components/IconTabs";
 import { Input } from "@/lib/components/Input";
 import Link from "next/link";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { User, getUser, updateUser } from "@/lib/modals/user";
 import { useAuthContext } from "@/lib/auth/AuthContext";
 import { AuthLayoutWrapper } from "@/lib/auth/AuthLayout";
+import { CountryDropdown } from "react-country-region-selector";
+import classNames from "classnames";
 
 const Info = ({ leftTitle, leftValue, rightTitle, rightValue }: any) => (
   <div className="flex justify-between">
@@ -24,7 +26,13 @@ const Info = ({ leftTitle, leftValue, rightTitle, rightValue }: any) => (
 let updateUserTimeout: ReturnType<typeof setTimeout>;
 
 const ProfileForm = () => {
-  const { register, setValue, watch } = useForm<User>();
+  const {
+    register,
+    setValue,
+    watch,
+    formState: { errors },
+    control,
+  } = useForm<User>();
   const { user: authUser } = useAuthContext();
 
   useEffect(() => {
@@ -71,7 +79,25 @@ const ProfileForm = () => {
           register={register("email", { disabled: true })}
           placeholder="somebody@email.com"
         />
-        <Input register={register("countryCode")} placeholder="Netherlands" />
+        {/* <Input register={register("countryCode")} placeholder="Netherlands" /> */}
+        <Controller
+          name="countryCode"
+          render={({ field: { name, onChange, value } }) => (
+            <CountryDropdown
+              classes={classNames(
+                "border rounded-md bg-input p-3 leading-none",
+                {
+                  "border-red-500": errors.countryCode,
+                }
+              )}
+              defaultOptionLabel="Select Country"
+              name={name}
+              value={value}
+              onChange={onChange}
+            />
+          )}
+          control={control}
+        />
       </div>
     </form>
   );

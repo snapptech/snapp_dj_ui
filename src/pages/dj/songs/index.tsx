@@ -9,7 +9,7 @@ const MySongList = () => {
 
     const [data, setData] = useState(songs);
     const [input , setInput] = useState('')
-    const handleChange = (e) => {
+    const handleChange = (e:any) => {
         setInput(e.target.value)
     }
 
