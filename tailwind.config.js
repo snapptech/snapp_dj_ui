@@ -9,7 +9,7 @@ module.exports = {
         'input': '#19192F',
         'stroke': '#9E9E9F',
         'gray': "#D9D9D9",
-        'error': "FF4D4D",
+        'error': "#FF4D4D",
       },
     },
   },

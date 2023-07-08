@@ -7,8 +7,8 @@ const handleClick = () => {
 };
 
 const SignUp1 = () => {
-  return <main>
-    <h1 className="text-white font-sf-pro text-4xl font-bold leading-13">
+  return <main className=" relative bg-[url(/djsignup.jpg)] bg-cover  h-screen">
+    <h1 className="absolute top-1/2 transform -translate-y-1/2 text-white font-sf-pro text-4xl font-bold leading-13">
       Its how DJ’s make side income
     </h1>
     <h3 className="text-white font-sf-pro text-lg font-medium leading-7">
