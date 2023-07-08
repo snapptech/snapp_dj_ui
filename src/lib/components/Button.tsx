@@ -23,10 +23,10 @@ const Button = ({
     <button
       className={classNames(
         className,
-        "text-base font-bold leading-relaxed tracking-tight rounded-lg p-2",
+        "text-base font-bold leading-relaxed tracking-tight rounded-2xl p-2",
         {
-          "bg-primary text-white": color === "primary",
-          "bg-input border border-white": color === "secondary",
+          " text-xl rounded-2xl bg-primary text-white": color === "primary",
+          "rounded-md bg-input border border-white": color === "secondary",
           "w-full": fullWidth,
         }
       )}

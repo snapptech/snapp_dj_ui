@@ -34,10 +34,7 @@ export const DetailsForm = () => {
   const onSubmit = useCallback(
     async (user: User) => {
       if (!authUser) return;
-      await updateUser(authUser.uid, {
-        ...user,
-        photoUrl: authUser.photoURL || undefined,
-      });
+      await updateUser(authUser.uid, user);
       push("/dj/onboarding/picture");
     },
     [authUser, push]
@@ -46,9 +43,11 @@ export const DetailsForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col container gap-5 px-8 h-full py-6 text-center basis-full min-h-screen"
+      className="flex flex-col container gap-5 px-8 h-full pt-11 pb-6 text-center basis-full min-h-screen"
     >
-      <p className="text-3xl bold">Create an account to start earning!</p>
+      <p className="text-3xl font-sf-pro font-bold mb-1">
+        Create an account to start earning!
+      </p>
 
       <Input
         placeholder="Name"
@@ -99,7 +98,7 @@ export const DetailsForm = () => {
         error={errors.KvKNumber}
       />
 
-      <p>
+      <p className="font-sf-pro text-sm ">
         {"By continuing, you agree to our "}
         <Link href="/tos" className="text-primary">
           Terms of Service
@@ -113,7 +112,7 @@ export const DetailsForm = () => {
       <input
         type="submit"
         value="Next"
-        className="bg-primary text-white bold text-xl p-4 w-full rounded-2xl mt-auto"
+        className="bg-primary text-white bold text-xl p-2 w-full rounded-2xl mt-auto"
       />
     </form>
   );

@@ -22,6 +22,7 @@ function PictureForm({}: PictureFormProps) {
   useEffect(() => {
     (async () => {
       if (!authUser) return;
+      console.log((await getUser(authUser.uid)).result)
       setImage((await getUser(authUser.uid)).result?.photoUrl);
     })();
   }, [authUser]);
@@ -42,7 +43,7 @@ function PictureForm({}: PictureFormProps) {
 
   return (
     <div className="flex flex-col justify-center p-8 text-center min-h-screen">
-      <p className=" text-3xl font-bold ">
+      <p className=" text-2xl font-bold font-sf-pro mb-2 ">
         Add a profile picture so others can recognize you
       </p>
       <p className="font-medium ">You can always change this later.</p>
