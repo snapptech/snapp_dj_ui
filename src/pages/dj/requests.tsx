@@ -2,12 +2,17 @@ import { useAuthContext } from "@/lib/auth/AuthContext";
 import { AuthLayoutWrapper } from "@/lib/auth/AuthLayout";
 import Button from "@/lib/components/Button";
 import { IconTabs } from "@/lib/components/IconTabs";
-import { RequestData, getRequests, updateRequest } from "@/lib/modals/requests";
-import { FC, useCallback, useEffect, useState } from "react";
+import {
+  RequestData,
+  getLiveRequestsQuery,
+  updateRequest,
+} from "@/lib/modals/requests";
+import { onSnapshot } from "firebase/firestore";
+import { FC, useEffect, useState } from "react";
 
 const getCountDown = (createdAt: number) => {
   const now = new Date();
-  const created = new Date(createdAt * 1000);
+  const created = new Date(createdAt);
   const timeElapsed = now.getTime() - created.getTime();
 
   const remainingTime = 25 * 60 * 1000 - timeElapsed;
@@ -61,7 +66,7 @@ const NewRequest: FC<NewRequestProps> = ({
         leftTitle="Song"
         leftValue={songName}
         rightTitle="Tip"
-        rightValue={`€${amount}`}
+        rightValue={`€${(amount / 100).toFixed(2).replace(".", ",")}`}
       />
       <Info
         leftTitle="Artist"
@@ -120,7 +125,7 @@ const AcceptedRequest: FC<AcceptedRequestProps> = ({
       </div>
       <div>
         <p className="text-xs">Tip</p>
-        <p className="text">{amount}</p>
+        <p className="text">{(amount / 100).toFixed(2).replace(".", ",")}</p>
       </div>
       <div>
         <p className="text-xs ">Countdown</p>
@@ -146,25 +151,27 @@ const Requests = () => {
 
   const { user } = useAuthContext();
 
-  const loadAllRequests = useCallback(async () => {
-    if (!user) return;
-    const { result, error } = await getRequests(user.uid);
-    if (error || !result) return console.error(error);
-
-    const pendingRequests = result.filter(
-      (request) => request.status === "pending"
-    );
-    setPendingRequests(pendingRequests);
-
-    const acceptedRequests = result.filter(
-      (request) => request.status === "approved"
-    );
-    setAcceptedRequests(acceptedRequests);
-  }, [user]);
-
   useEffect(() => {
-    loadAllRequests();
-  }, [loadAllRequests, user]);
+    if (!user) return;
+    const listener = onSnapshot(getLiveRequestsQuery(user.uid), (docsSnap) => {
+      const docs: RequestData[] = [];
+      docsSnap.forEach((doc) => {
+        docs.push(doc.data() as RequestData);
+      });
+
+      const pendingRequests = docs.filter(
+        (request) => request.status === "pending"
+      );
+      setPendingRequests(pendingRequests);
+
+      const acceptedRequests = docs.filter(
+        (request) => request.status === "approved"
+      );
+      setAcceptedRequests(acceptedRequests);
+    });
+
+    return () => listener();
+  }, [user]);
 
   const handleConfirmRequest = async (
     id: string,
@@ -179,7 +186,6 @@ const Requests = () => {
 
       try {
         await updateRequest(id, updatedRequest);
-        loadAllRequests();
       } catch (error) {
         console.log("update request failed", error);
       }

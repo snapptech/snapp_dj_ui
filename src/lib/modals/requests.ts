@@ -40,13 +40,13 @@ export const getRequest = async (id: string) => {
 };
 
 export const getRequests = async (userId: string) => {
-  const servicesRef = collection(db, REQUEST_COLLECTION);
+  const requestsRef = collection(db, REQUEST_COLLECTION);
 
   let result = null;
   let error = null;
 
   try {
-    const q = query(servicesRef, where("userId", "==", userId));
+    const q = query(requestsRef, where("userId", "==", userId));
     result = await getDocs(q);
 
     const response: RequestData[] = [];
@@ -59,6 +59,12 @@ export const getRequests = async (userId: string) => {
   }
 
   return { result: result as RequestData[], error };
+};
+
+export const getLiveRequestsQuery = (userId: string) => {
+  const requestsRef = collection(db, REQUEST_COLLECTION);
+
+  return query(requestsRef, where("userId", "==", userId));
 };
 
 export const updateRequest = async (id: string, data: Partial<RequestData>) => {
@@ -81,8 +87,9 @@ export const addRequest = async (data: Partial<RequestData>) => {
   let error = null;
 
   try {
-
     result = await addDoc(collection(db, REQUEST_COLLECTION), data);
+
+    await updateRequest(result.id, { id: result.id });
   } catch (e) {
     error = e;
   }
