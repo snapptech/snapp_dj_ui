@@ -35,12 +35,12 @@ const MySongList = () => {
   }, [dj_id]);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    push(
-      `/user/${dj_id}/${selectedSong?.uuid}?cents=${
-        (e.target as HTMLInputElement).value
-      }`
-    );
+    setInput((e.target as HTMLInputElement).value);
   };
+  const handleSubmit = useCallback(() => {
+    console.log({ input });
+    push(`/user/${dj_id}/${selectedSong?.uuid}?cents=${input}`);
+  }, [input, push, dj_id, selectedSong?.uuid]);
 
   if (!dj)
     return (
@@ -117,12 +117,16 @@ const MySongList = () => {
             >
               10,00
             </Link>
-            <input
-              className="text-xl h-full flex items-center justify-start flex-row text-bold py-4 w-1/3 bg-black "
-              placeholder="Enter"
-              type="text"
-              onChange={handleChange}
-            ></input>
+            <div className="w-1/3">
+              <input
+                className="text-xl flex items-center justify-start flex-row text-bold bg-black h-full"
+                placeholder="0,00$"
+                type="text"
+                onChange={handleChange}
+                onSubmit={handleSubmit}
+              />
+              
+            </div>
           </div>
         </motion.div>
       )}
