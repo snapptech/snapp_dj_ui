@@ -13,7 +13,8 @@ const Button = ({ type, value, onClick, color }: IButton) => {
     <button className={classNames(
       "font-inter text-base font-bold leading-relaxed tracking-tight rounded-lg px-4 py-4",
       {
-        "bg-blue-500 text-white": color === "primary"
+        "bg-blue-500 text-white": color === "primary",
+        "border border-white" : color === "secondary"
       }
       )} type={type} onClick={onClick}>
       {value}

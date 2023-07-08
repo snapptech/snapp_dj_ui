@@ -16,7 +16,7 @@ const SignUp1 = () => {
     </h3>
     <Button type="button" value="Click Me" onClick={handleClick} color="primary" />
     <br></br>
-    <Button type="button" value="Continue with Google" onClick={handleClick} color="primary"/>
+    <Button type="button" value="Continue with Google" onClick={handleClick} color="secondary"/>
 
   </main>;
 };
