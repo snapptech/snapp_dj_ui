@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { songs } from "@/data/songs.json";
 import { LibraryData } from "../modals/library";
 
@@ -16,27 +17,35 @@ export const SongsList = ({ search = "", onSelect, library }: ISongsList) => {
 
   return (
     <ul>
-      {filteredSongs.map((song) => (
-        <li
-          key={song.uuid}
-          className="flex justify-between gap-2 p-2 border-b border-stroke/30"
-        >
-          <div className="flex-1">
-            <div className="text-lg">{song.title}</div>
-            <div className="text-sm">{song.artist}</div>
-          </div>
-          <button className="text-white" onClick={() => onSelect(song)}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="21"
-              height="21"
-              fill="none"
-            >
-              <path fill="currentColor" d="M21 12h-9v9H9v-9H0V9h9V0h3v9h9v3Z" />
-            </svg>
-          </button>
-        </li>
-      ))}
+      <AnimatePresence>
+        {filteredSongs.map((song) => (
+          <motion.li
+            initial={{ x: -16, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -16, opacity: 0 }}
+            key={song.uuid}
+            className="flex justify-between gap-2 p-2 border-b border-stroke/30"
+          >
+            <div className="flex-1">
+              <div className="text-lg">{song.title}</div>
+              <div className="text-sm">{song.artist}</div>
+            </div>
+            <button className="text-white" onClick={() => onSelect(song)}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="21"
+                height="21"
+                fill="none"
+              >
+                <path
+                  fill="currentColor"
+                  d="M21 12h-9v9H9v-9H0V9h9V0h3v9h9v3Z"
+                />
+              </svg>
+            </button>
+          </motion.li>
+        ))}
+      </AnimatePresence>
     </ul>
   );
 };
