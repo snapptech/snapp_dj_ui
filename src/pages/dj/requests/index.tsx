@@ -2,11 +2,11 @@ const Info = ({ leftTitle, leftValue, rightTitle, rightValue }: any) => (
   <div className="flex justify-between">
     <div>
       <p className="text-sm">{leftTitle}</p>
-      <p className="text-lg">{leftValue}</p>
+      <p className="text-xl">{leftValue}</p>
     </div>
     <div className="text-right">
       <p className="text-sm">{rightTitle}</p>
-      <p className="text-lg">{rightValue}</p>
+      <p className="text-xl">{rightValue}</p>
     </div>
   </div>
 );
@@ -41,16 +41,16 @@ const AcceptedRequest = ({
 }: Record<string, string | boolean>) => (
   <div className="flex justify-between">
     <div>
-      <p className="text-sm">Song</p>
-      <p className="text-lg">{song}</p>
+      <p className="text-xs">Song</p>
+      <p className="text">{song}</p>
     </div>
     <div>
-      <p className="text-sm">Tip</p>
-      <p className="text-lg">{tip}</p>
+      <p className="text-xs">Tip</p>
+      <p className="text">{tip}</p>
     </div>
     <div>
-      <p className="text-sm ">Countdown</p>
-      <p className={`text-lg ${shouldWarn && "text-error"}`}>{countdown}</p>
+      <p className="text-xs ">Countdown</p>
+      <p className={`text ${shouldWarn && "text-error"}`}>{countdown}</p>
     </div>
     <div>
       <button>Played</button>
@@ -60,7 +60,7 @@ const AcceptedRequest = ({
 
 const Requests = () => {
   return (
-    <div className="bg-dark h-full p-3">
+    <div className="bg-dark h-full p-5">
       <div className="pb-3">
         <NewRequest />
       </div>
