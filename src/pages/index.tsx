@@ -1,6 +1,8 @@
 import Link from "next/link";
+import SignUp1 from "./dj/signup";
 
 export default function Home() {
+  return <SignUp1 />;
   return (
     <div className="w-[1440px] h-[2849px] relative overflow-hidden bg-white">
       <img
@@ -16,12 +18,18 @@ export default function Home() {
         Earn More Doing What You Love
       </p>
       <div className="flex justify-start items-start absolute left-[1199px] top-[35px] gap-2.5 px-5 py-2 rounded bg-[#582dd1]">
-        <Link href="/dj/signup" className="flex-grow-0 flex-shrink-0 text-xs font-semibold text-center text-white">
+        <Link
+          href="/dj/signup"
+          className="flex-grow-0 flex-shrink-0 text-xs font-semibold text-center text-white"
+        >
           WEB APP
         </Link>
       </div>
       <div className="flex justify-start items-start absolute left-[137px] top-[581px] gap-5">
-        <Link href="/dj/signup" className="flex-grow-0 flex-shrink-0 w-[157px] h-[46px] relative">
+        <Link
+          href="/dj/signup"
+          className="flex-grow-0 flex-shrink-0 w-[157px] h-[46px] relative"
+        >
           <div className="w-[157px] h-[46px] absolute left-[-0.5px] top-[-0.5px] rounded bg-[#582dd1]"></div>
           <div className="absolute left-[45.07px] top-[13px] text-xs font-semibold text-center uppercase text-white">
             Web app
@@ -142,10 +150,16 @@ export default function Home() {
           <p className="absolute left-[541px] top-[2811px] text-md text-left text-[#898989]">
             Copyright © 2023 TipTop
           </p>
-          <Link href="/" className="absolute left-[791px] top-[2811px] text-md text-left text-[#898989]">
+          <Link
+            href="/"
+            className="absolute left-[791px] top-[2811px] text-md text-left text-[#898989]"
+          >
             Privacy Policy
           </Link>
-          <Link href="/" className="absolute left-[929px] top-[2811px] text-md text-left text-[#898989]">
+          <Link
+            href="/"
+            className="absolute left-[929px] top-[2811px] text-md text-left text-[#898989]"
+          >
             Terms and Conditions
           </Link>
         </div>

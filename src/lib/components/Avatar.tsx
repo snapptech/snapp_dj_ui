@@ -31,14 +31,16 @@ export const Avatar = ({ image, onChange }: IAvatar) => {
             />
           </svg>
         )}
-        <input
-          type="file"
-          id="avatar-input"
-          hidden
-          onChange={(input) =>
-            input.target.files?.[0] && onChange?.(input.target.files[0])
-          }
-        />
+        {onChange && (
+          <input
+            type="file"
+            id="avatar-input"
+            hidden
+            onChange={(input) =>
+              input.target.files?.[0] && onChange?.(input.target.files[0])
+            }
+          />
+        )}
       </label>
     </div>
   );

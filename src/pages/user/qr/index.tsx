@@ -8,6 +8,7 @@ import classNames from "classnames";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { LibraryData, getSongsInLibrary } from "@/lib/modals/library";
+import { DjHeader } from "@/lib/components/DjHeader";
 
 const MySongList = () => {
   const {
@@ -55,15 +56,7 @@ const MySongList = () => {
 
   return (
     <main className="px-5 py-2 min-h-screen flex flex-col justify-between">
-      <div className="flex flex-row justify-center flex-1 items-center mt-16 mb-5">
-        <Avatar image={dj?.photoUrl} onChange={() => {}} />
-      </div>
-      <div className="flex flex-row justify-center flex-1 items-center">
-        <p className="text-lg text-bold">
-          {dj?.artistName}{" "}
-          <span className="text-base">( {dj?.countryCode} )</span>
-        </p>
-      </div>
+      {dj ? <DjHeader {...dj} /> : <LoadingSpinner className="mx-auto" />}
 
       <hr className="-mx-5 my-5" />
 
@@ -74,37 +67,37 @@ const MySongList = () => {
         </div>
       )}
       <div className="flex-1">
-      {data.map((item) => (
-        <div
-          onClick={() => setSelectedSong(item)}
-          className={classNames("flex mb-6 transition-all", {})}
-          key={item.songId}
-        >
+        {data.map((item) => (
           <div
-            className={classNames("h-12 w-12 transition-all mr-4 relative", {
-              "ml-4": item.songId === selectedSong?.songId,
-            })}
+            onClick={() => setSelectedSong(item)}
+            className={classNames("flex mb-6 transition-all", {})}
+            key={item.songId}
           >
-            <SongDisplayPic image="/images/songdisplaypic.png" />
             <div
-              className={classNames(
-                "transition-all absolute left-1/2 inset-y-0 -right-4 -z-[1]",
-                {
-                  "bg-primary": item.songId === selectedSong?.songId,
-                }
-              )}
-            />
+              className={classNames("h-12 w-12 transition-all mr-4 relative", {
+                "ml-4": item.songId === selectedSong?.songId,
+              })}
+            >
+              <SongDisplayPic image="/images/songdisplaypic.png" />
+              <div
+                className={classNames(
+                  "transition-all absolute left-1/2 inset-y-0 -right-4 -z-[1]",
+                  {
+                    "bg-primary": item.songId === selectedSong?.songId,
+                  }
+                )}
+              />
+            </div>
+            <div
+              className={classNames("border-b border-gray w-full transition-all rounded-r", {
+                "bg-primary": item.songId === selectedSong?.songId,
+              }, item.songId !== selectedSong?.songId ? 'border-opacity-30' : 'border-opacity-0')}
+            >
+              <h4 className="font-bold">{item.title}</h4>
+              <p className=" text-xs  ">{item.artist}</p>
+            </div>
           </div>
-          <div
-            className={classNames("border-b w-full transition-all", {
-              "bg-primary": item.songId === selectedSong?.songId,
-            })}
-          >
-            <h4 className="font-bold">{item.title}</h4>
-            <p className=" text-xs  ">{item.artist}</p>
-          </div>
-        </div>
-      ))}
+        ))}
       </div>
       {/* </div> */}
       {selectedSong && (

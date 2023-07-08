@@ -11,6 +11,8 @@ import { CountryDropdown } from "react-country-region-selector";
 import classNames from "classnames";
 import { onAuthStateChanged, getAuth, User as AuthUser } from "firebase/auth";
 import { RequestData, getRequests } from "@/lib/modals/requests";
+import { DjHeader } from "@/lib/components/DjHeader";
+import { LoadingSpinner } from "@/lib/components/LoadingSpinner";
 
 const Info = ({ leftTitle, leftValue, rightTitle, rightValue }: any) => (
   <div className="flex justify-between">
@@ -93,7 +95,7 @@ const ProfileForm: FC<ProfileFormProps> = ({ setUserProfile, authUser }) => {
           render={({ field: { name, onChange, value } }) => (
             <CountryDropdown
               classes={classNames(
-                "border rounded-md bg-input p-3 leading-none",
+                "border rounded-md h-12 bg-input p-3 leading-none",
                 {
                   "border-red-500": errors.countryCode,
                 }
@@ -162,16 +164,7 @@ const Profile = () => {
             </svg>
           </Link>
         </div>
-        <div className="text-center mt-4">
-          <p className="py-2 text-lg">Profile</p>
-          <div className="flex justify-center py-3">
-            <Avatar image={userProfile?.photoUrl} />
-          </div>
-          <p className="text-lg text-bold">
-            {userProfile?.name}
-            <span className="text-base"> ({userProfile?.countryCode})</span>
-          </p>
-        </div>
+        {userProfile ? <DjHeader {...userProfile} /> : <LoadingSpinner className="w-full justify-center items-center" />}
         <div className="py-3">
           <Info
             leftTitle="Request(s)"
