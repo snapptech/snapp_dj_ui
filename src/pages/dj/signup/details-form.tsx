@@ -46,6 +46,8 @@ function DetailsForm({}: DetailsFormProps) {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col container gap-5 text-center"
     >
+      <p className="text-3xl bold">Create an account to start earning!</p>
+
       <Input
         placeholder="Name"
         register={register("name", { required: "Name is required" })}
