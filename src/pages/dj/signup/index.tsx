@@ -1,6 +1,6 @@
 // import AuthLayout from "@/lib/auth/AuthLayout";
 import React from "react";
-import Button from '../Button'
+import Button from '../../Button'
 
 const handleClick = () => {
   console.log('Button clicked!');
