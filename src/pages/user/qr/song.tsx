@@ -12,7 +12,7 @@ import Button from "@/lib/components/Button";
 
 const SongPage = () => {
   const {
-    query: { song_id: rawSongId, cents: centsRaw },
+    query: { dj_id, song_id: rawSongId, cents: centsRaw },
   } = useRouter();
 
   const { push } = useRouter();
@@ -41,7 +41,7 @@ const SongPage = () => {
     async (request: RequestData) => {
       const { result } = await addRequest(request);
       const request_id = result?.id;
-      push(`request/${request_id}`);
+      push(`/user/qr/request?dj_id=${dj_id}&song_id=${rawSongId}&request_id=${request_id}`);
     },
     [push]
   );
