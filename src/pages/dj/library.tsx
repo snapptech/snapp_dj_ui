@@ -1,5 +1,6 @@
 import { useAuthContext } from "@/lib/auth/AuthContext";
 import { AuthLayoutWrapper } from "@/lib/auth/AuthLayout";
+import { IconTabs } from "@/lib/components/IconTabs";
 import { Input } from "@/lib/components/Input";
 import { LibraryList } from "@/lib/components/LibraryList";
 import { Song, SongsList } from "@/lib/components/SongsList";
@@ -17,7 +18,6 @@ const Library = () => {
   const { user } = useAuthContext();
 
   const addToLibrary = (song: Song) => {
-
     if (!user) return;
 
     setLibrary((prev) => [
@@ -42,7 +42,7 @@ const Library = () => {
       setLibrary(result);
     }
     updateSongs();
-  },[user]);
+  }, [user]);
 
   return (
     <div className="p-8">
@@ -108,6 +108,8 @@ const Library = () => {
           />
         </div>
       )}
+
+      <IconTabs selectedTab="library" />
     </div>
   );
 };
