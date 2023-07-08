@@ -4,17 +4,23 @@ export const Input = ({
   placeholder,
   error,
   register,
+  className,
 }: {
   placeholder: string;
+  className?: string;
   register: any;
   error?: { message?: string };
 }) => {
   return (
     <>
       <input
-        className={classNames("border rounded-md bg-input p-3 leading-none w-full", {
-          "border-red-500": error,
-        })}
+        className={classNames(
+          className,
+          "border rounded-md bg-input p-3 leading-none w-full",
+          {
+            "border-red-500": error,
+          }
+        )}
         placeholder={placeholder}
         {...register}
       />
