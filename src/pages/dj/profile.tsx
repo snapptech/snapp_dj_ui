@@ -2,13 +2,15 @@ import { Avatar } from "@/lib/components/Avatar";
 import { IconTabs } from "@/lib/components/IconTabs";
 import { Input } from "@/lib/components/Input";
 import Link from "next/link";
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { User, getUser, updateUser } from "@/lib/modals/user";
 import { useAuthContext } from "@/lib/auth/AuthContext";
 import { AuthLayoutWrapper } from "@/lib/auth/AuthLayout";
 import { CountryDropdown } from "react-country-region-selector";
 import classNames from "classnames";
+import { onAuthStateChanged, getAuth, User as AuthUser } from "firebase/auth";
+import { RequestData, getRequests } from "@/lib/modals/requests";
 
 const Info = ({ leftTitle, leftValue, rightTitle, rightValue }: any) => (
   <div className="flex justify-between">
@@ -25,7 +27,12 @@ const Info = ({ leftTitle, leftValue, rightTitle, rightValue }: any) => (
 
 let updateUserTimeout: ReturnType<typeof setTimeout>;
 
-const ProfileForm: FC<{ setUserProfile: any }> = ({ setUserProfile }) => {
+type ProfileFormProps = {
+  authUser: AuthUser | null;
+  setUserProfile: (user: User | null) => void;
+};
+
+const ProfileForm: FC<ProfileFormProps> = ({ setUserProfile, authUser }) => {
   const {
     register,
     setValue,
@@ -33,7 +40,6 @@ const ProfileForm: FC<{ setUserProfile: any }> = ({ setUserProfile }) => {
     formState: { errors },
     control,
   } = useForm<User>();
-  const { user: authUser } = useAuthContext();
 
   useEffect(() => {
     async function updateUserSettings() {
@@ -106,7 +112,30 @@ const ProfileForm: FC<{ setUserProfile: any }> = ({ setUserProfile }) => {
 };
 
 const Profile = () => {
-  const [userProfile, setUserProfile] = useState<Partial<User>>({});
+  const [userProfile, setUserProfile] = useState<User | null>(null);
+  const { user: authUser } = useAuthContext();
+  const [completedRequests, setCompletedRequests] = useState<RequestData[]>([]);
+  const [amountEarned, setAmountEarned] = useState(0);
+
+  const loadAllRequests = useCallback(async () => {
+    if (!authUser) return;
+    const { result, error } = await getRequests(authUser.uid);
+    if (error || !result) return console.error(error);
+
+    const completedRequestsData = result.filter(
+      (request) => request.status === "done"
+    );
+    setCompletedRequests(completedRequestsData);
+    const calculatedAmountEarned = completedRequestsData.reduce(
+      (acc, cur) => acc + cur.amount,
+      0
+    );
+    setAmountEarned(calculatedAmountEarned);
+  }, [authUser]);
+
+  useEffect(() => {
+    loadAllRequests();
+  }, [loadAllRequests]);
 
   return (
     <div className="px-5 py-2 min-h-screen flex flex-col justify-between">
@@ -138,19 +167,19 @@ const Profile = () => {
             <Avatar image={userProfile?.photoUrl} />
           </div>
           <p className="text-lg text-bold">
-            {userProfile.name}{" "}
-            <span className="text-base">( {userProfile.countryCode} )</span>
+            {userProfile?.name}
+            <span className="text-base">( {userProfile?.countryCode} )</span>
           </p>
         </div>
         <div className="py-3">
           <Info
             leftTitle="Request(s)"
-            leftValue="11"
+            leftValue={completedRequests.length}
             rightTitle="Earnings"
-            rightValue="€ 240"
+            rightValue={`€ ${amountEarned}`}
           />
         </div>
-        <ProfileForm setUserProfile={setUserProfile} />
+        <ProfileForm setUserProfile={setUserProfile} authUser={authUser} />
         <p className="text-bold pt-3">
           Print QR-code:
           <Link href="/dj/code" className="underline">
