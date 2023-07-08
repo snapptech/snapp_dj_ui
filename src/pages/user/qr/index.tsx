@@ -1,4 +1,3 @@
-import songs from "@/data/songs.json";
 import { SongDisplayPic } from "@/lib/components/SongDisplayPic";
 import { Avatar } from "@/lib/components/Avatar";
 import { useCallback, useEffect, useState } from "react";
@@ -8,12 +7,7 @@ import { LoadingSpinner } from "@/lib/components/LoadingSpinner";
 import classNames from "classnames";
 import Link from "next/link";
 import { motion } from "framer-motion";
-
-type Song = {
-  title: string;
-  artist: string;
-  uuid: string;
-};
+import { LibraryData, getSongsInLibrary } from "@/lib/modals/library";
 
 const MySongList = () => {
   const {
@@ -21,8 +15,8 @@ const MySongList = () => {
     push,
   } = useRouter();
 
-  const [data, setData] = useState(songs);
-  const [selectedSong, setSelectedSong] = useState<Song>();
+  const [data, setData] = useState<LibraryData[]>([]);
+  const [selectedSong, setSelectedSong] = useState<LibraryData>();
   const [input, setInput] = useState("");
   const [dj, setDj] = useState<User>();
 
@@ -34,13 +28,23 @@ const MySongList = () => {
     })();
   }, [dj_id]);
 
+  useEffect(() => {
+    (async () => {
+      const { result, error } = await getSongsInLibrary(String(dj_id));
+
+      setData(result || []);
+    })();
+  }, [dj_id]);
+
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setInput((e.target as HTMLInputElement).value);
   };
   const handleSubmit = useCallback(() => {
     console.log({ input });
-    push(`/user/qr/song?dj_id=${dj_id}&song_id=${selectedSong?.uuid}&cents=${input}`);
-  }, [input, push, dj_id, selectedSong?.uuid]);
+    push(
+      `/user/qr/song?dj_id=${dj_id}&song_id=${selectedSong?.songId}&cents=${input}`
+    );
+  }, [input, push, dj_id, selectedSong?.songId]);
 
   if (!dj)
     return (
@@ -64,15 +68,21 @@ const MySongList = () => {
       <hr className="-mx-5 my-5" />
 
       {/* <div onClick={(e) => onSelectSong(e)}> */}
-      {data.songs.slice(50).map((item) => (
+      {data.length === 0 && (
+        <div className="mb-32 text-center flex-1">
+          No songs available in the DJ&apos;s library for you to select.
+        </div>
+      )}
+      <div class="flex-1">
+      {data.map((item) => (
         <div
           onClick={() => setSelectedSong(item)}
           className={classNames("flex mb-6 transition-all", {})}
-          key={item.uuid}
+          key={item.songId}
         >
           <div
             className={classNames("h-12 w-12 transition-all mr-4 relative", {
-              "ml-4": item.uuid === selectedSong?.uuid,
+              "ml-4": item.songId === selectedSong?.songId,
             })}
           >
             <SongDisplayPic image="/images/songdisplaypic.png" />
@@ -80,14 +90,14 @@ const MySongList = () => {
               className={classNames(
                 "transition-all absolute left-1/2 inset-y-0 -right-4 -z-[1]",
                 {
-                  "bg-primary": item.uuid === selectedSong?.uuid,
+                  "bg-primary": item.songId === selectedSong?.songId,
                 }
               )}
             />
           </div>
           <div
             className={classNames("border-b w-full transition-all", {
-              "bg-primary": item.uuid === selectedSong?.uuid,
+              "bg-primary": item.songId === selectedSong?.songId,
             })}
           >
             <h4 className="font-bold">{item.title}</h4>
@@ -95,6 +105,7 @@ const MySongList = () => {
           </div>
         </div>
       ))}
+      </div>
       {/* </div> */}
       {selectedSong && (
         <motion.div
@@ -105,14 +116,18 @@ const MySongList = () => {
           <h3 className="text-sm text-bold pr-5 my-4">Song request tip</h3>
           <div className="  flex flex-row justify-center flex-1 items-center gap-3 h-12">
             <Link
-              href={`/user/qr/song?dj_id=${dj_id}&song_id=${selectedSong?.uuid}&cents=${500}`}
+              href={`/user/qr/song?dj_id=${dj_id}&song_id=${
+                selectedSong?.songId
+              }&cents=${500}`}
               className="text-xl h-full flex items-center justify-start flex-row text-bold border-r border-white w-1/3"
             >
               5,00
             </Link>
 
             <Link
-              href={`/user/qr/song?dj_id=${dj_id}&song_id=${selectedSong?.uuid}&cents=${1000}`}
+              href={`/user/qr/song?dj_id=${dj_id}&song_id=${
+                selectedSong?.songId
+              }&cents=${1000}`}
               className="text-xl h-full flex items-center justify-start flex-row text-bold border-r border-white w-1/3"
             >
               10,00
@@ -125,7 +140,6 @@ const MySongList = () => {
                 onChange={handleChange}
                 onSubmit={handleSubmit}
               />
-              
             </div>
           </div>
         </motion.div>

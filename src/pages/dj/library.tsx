@@ -4,7 +4,12 @@ import { IconTabs } from "@/lib/components/IconTabs";
 import { Input } from "@/lib/components/Input";
 import { LibraryList } from "@/lib/components/LibraryList";
 import { Song, SongsList } from "@/lib/components/SongsList";
-import { LibraryData, getSongsInLibrary } from "@/lib/modals/library";
+import {
+  LibraryData,
+  addUpdateSong,
+  getSongsInLibrary,
+  removeSong,
+} from "@/lib/modals/library";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -17,18 +22,21 @@ const Library = () => {
 
   const { user } = useAuthContext();
 
-  const addToLibrary = (song: Song) => {
+  const addToLibrary = async (song: Song) => {
     if (!user) return;
 
+    await addUpdateSong(song.uuid, { ...song, songId: song.uuid, userId: user.uid });
+    
     setLibrary((prev) => [
       ...prev,
       { ...song, songId: song.uuid, userId: user?.uid } as LibraryData,
     ]);
   };
-
-  const removeFromLibrary = (song: LibraryData) => {
+  
+  const removeFromLibrary = async (song: LibraryData) => {
     if (!user) return;
-
+    
+    await removeSong(song.songId);
     setLibrary((prev) => prev.filter((s) => s.songId !== song.songId));
   };
 
