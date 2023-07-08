@@ -1,15 +1,16 @@
 import songs from "@/data/songs.json";
 import { SongDisplayPic } from "@/lib/components/SongDisplayPic";
 import { Avatar } from "@/lib/components/Avatar";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { User, getUser } from "@/lib/modals/user";
 import { useRouter } from "next/router";
 import { LoadingSpinner } from "@/lib/components/LoadingSpinner";
+import classNames from "classnames";
 
 type Song = {
-  id: string;
-  name: string;
+  title: string;
   artist: string;
+  uuid: string;
 };
 
 const MySongList = () => {
@@ -18,7 +19,7 @@ const MySongList = () => {
   } = useRouter();
 
   const [data, setData] = useState(songs);
-  const [selectedSong, setSelectedSong] = useState<Song[]>([]);
+  const [selectedSong, setSelectedSong] = useState<Song>();
   const [input, setInput] = useState("");
   const [dj, setDj] = useState<User>();
 
@@ -29,12 +30,9 @@ const MySongList = () => {
       setDj(result || undefined);
     })();
   }, [dj_id]);
+
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setInput((e.target as HTMLInputElement).value);
-  };
-  const onSelectSong = (item: any) => {
-    setSelectedSong((prevState) => [...prevState, item]);
-    console.log(selectedSong);
   };
 
   if (!dj)
@@ -57,18 +55,31 @@ const MySongList = () => {
       </div>
 
       {/* <div onClick={(e) => onSelectSong(e)}> */}
-      {data.songs.slice(50).map((item: any, index) => (
+      {data.songs.slice(50).map((item) => (
         <div
-          onClick={() => onSelectSong(item)}
-          className=" flex py-6 border-b border-white justify-start visited:bg-purple-500 focus:bg-purple-500"
-          key={index}
+          onClick={() => setSelectedSong(item)}
+          className={classNames("flex mb-6 transition-all", {})}
+          key={item.uuid}
         >
-          <div className="h-16 w-16">
+          <div
+            className={classNames("h-12 w-12 transition-all mr-4 relative", {
+              "ml-4": item.uuid === selectedSong?.uuid,
+            })}
+          >
             <SongDisplayPic image="/images/songdisplaypic.png" />
+            <div
+              className={classNames("transition-all absolute left-1/2 inset-y-0 -right-4 -z-[1]", {
+                "bg-primary": item.uuid === selectedSong?.uuid,
+              })}
+            />
           </div>
-          <div className="px-2 py-1">
-            <h4>{item.title}</h4>
-            <p>{item.artist}</p>
+          <div
+            className={classNames("border-b w-full transition-all", {
+              "bg-primary": item.uuid === selectedSong?.uuid,
+            })}
+          >
+            <h4 className="font-bold">{item.title}</h4>
+            <p className=" text-xs  ">{item.artist}</p>
           </div>
         </div>
       ))}
