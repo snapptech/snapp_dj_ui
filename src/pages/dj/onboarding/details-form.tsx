@@ -38,7 +38,7 @@ export const DetailsForm = () => {
         ...user,
         photoUrl: authUser.photoURL || undefined,
       });
-      push("/dj/signup/picture");
+      push("/dj/onboarding/picture");
     },
     [authUser, push]
   );
