@@ -4,7 +4,7 @@ import classNames from "classnames";
 type IButton = {
   type: "button" | "submit" | "reset";
   value: string;
-  onClick: () => void;
+  onClick: (event: any) => void;
   color: "primary" | "secondary";
   fullWidth?: boolean;
 };
