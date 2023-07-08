@@ -101,6 +101,7 @@ const ProfileForm: FC<ProfileFormProps> = ({ setUserProfile, authUser }) => {
               defaultOptionLabel="Select Country"
               name={name}
               value={value}
+              valueType="short"
               onChange={onChange}
             />
           )}
@@ -168,7 +169,7 @@ const Profile = () => {
           </div>
           <p className="text-lg text-bold">
             {userProfile?.name}
-            <span className="text-base">( {userProfile?.countryCode} )</span>
+            <span className="text-base"> ({userProfile?.countryCode})</span>
           </p>
         </div>
         <div className="py-3">

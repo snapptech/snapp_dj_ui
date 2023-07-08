@@ -50,7 +50,7 @@ export const DetailsForm = () => {
       </p>
 
       <Input
-        placeholder="Name"
+        placeholder="Full name"
         register={register("name", { required: "Name is required" })}
         error={errors.name}
       />
@@ -60,7 +60,7 @@ export const DetailsForm = () => {
         error={errors.artistName}
       />
       <Input
-        placeholder="phoneNumber"
+        placeholder="Phone number"
         register={register("phoneNumber", {
           required: "phoneNumber is required",
         })}
@@ -71,12 +71,16 @@ export const DetailsForm = () => {
         name="countryCode"
         render={({ field: { name, onChange, value } }) => (
           <CountryDropdown
-            classes={classNames("border rounded-md bg-input p-3 leading-none", {
-              "border-red-500": errors.countryCode,
-            })}
+            classes={classNames(
+              "border h-12 rounded-md bg-input p-3 leading-none",
+              {
+                "border-red-500": errors.countryCode,
+              }
+            )}
             defaultOptionLabel="Select Country"
             name={name}
             value={value}
+            valueType="short"
             onChange={onChange}
           />
         )}
@@ -84,14 +88,14 @@ export const DetailsForm = () => {
       />
 
       <Input
-        placeholder="companyName"
+        placeholder="Company name"
         register={register("companyName", {
           required: "companyName is required",
         })}
         error={errors.companyName}
       />
       <Input
-        placeholder="KvKNumber"
+        placeholder="KvK Number"
         register={register("KvKNumber", {
           required: "KvKNumber is required",
         })}
