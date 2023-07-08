@@ -1,7 +1,7 @@
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "./db";
 import { storage } from "./storage";
-import { ref, uploadBytes, uploadBytesResumable } from "firebase/storage";
+import { ref, uploadBytes } from "firebase/storage";
 
 const USER_COLLECTION = "users";
 

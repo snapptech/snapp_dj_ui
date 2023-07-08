@@ -23,7 +23,7 @@ const SignUp1 = () => {
       return console.log(error);
     }
 
-    return router.push("/dj/profile");
+    return router.push("/dj/onboarding/details-form");
   };
 
   return (
