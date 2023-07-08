@@ -1,5 +1,5 @@
 import { AnimatePresence } from "framer-motion";
-import { GetServerSideProps } from "next";
+// import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -38,7 +38,7 @@ const ServiceItem = ({
   return (
     <motion.div
       className={classNames("flex flex-col border rounded-xl")}
-      key={service.id}
+      key={service?.id}
       onClick={onSelect}
     >
       <div
@@ -46,12 +46,12 @@ const ServiceItem = ({
           "border-transparent": !isSelected,
         })}
       >
-        {service.title}
+        {service?.title}
       </div>
       <AnimatePresence>
-        {service.type === "options" && isSelected && (
+        {service?.type === "options" && isSelected && (
           <>
-            {service.options.map(({ id, label }) => (
+            {service?.options.map(({ id, label }) => (
               <motion.div
                 className="flex flex-row overflow-hidden"
                 key={id}
@@ -64,7 +64,7 @@ const ServiceItem = ({
             ))}
           </>
         )}
-        {service.type === "text" && isSelected && (
+        {service?.type === "text" && isSelected && (
           <motion.div
             className="flex flex-row overflow-hidden"
             initial={{ opacity: 0, height: 0 }}
@@ -83,26 +83,26 @@ const ServiceItem = ({
   );
 };
 
-function UserLanding({ serviceProvider, services }: UserLandingProps) {
+function UserLanding({ serviceProvider, services = [] }: UserLandingProps) {
   const [selected, setSelected] = useState<string>();
 
   return (
     <div className="container p-8 gap-2 flex flex-col">
       <div className="flex flex-row gap-2 mb-4">
         <Image
-          src={serviceProvider.imageUrl}
+          src={serviceProvider?.imageUrl}
           width={64}
           height={64}
           className="border rounded-full overflow-hidden w-16 h-16 object-cover object-center "
-          alt={`Image of ${serviceProvider.name}`}
+          alt={`Image of ${serviceProvider?.name}`}
         />
-        <h1>{serviceProvider.name}</h1>
+        <h1>{serviceProvider?.name}</h1>
       </div>
       {services.map((service, i) => (
         <ServiceItem
-          key={service.id}
-          onSelect={() => setSelected(service.id)}
-          isSelected={service.id === selected}
+          key={service?.id}
+          onSelect={() => setSelected(service?.id)}
+          isSelected={service?.id === selected}
           service={service}
         />
       ))}
@@ -110,37 +110,37 @@ function UserLanding({ serviceProvider, services }: UserLandingProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps<
-  UserLandingProps
-> = async () => {
-  const services: Service[] = [
-    { id: "0", title: "Shoutout", type: "text" },
-    {
-      id: "1",
-      title: "Song request",
-      type: "options",
-      options: [
-        {
-          id: "2",
-          label: "A milli (house remix)",
-        },
-        {
-          id: "15",
-          label: "Dj Angerfist - Pennywise",
-        },
-      ],
-    },
-    { id: "3", title: "Selfie", type: "text" },
-  ];
-  return {
-    props: {
-      serviceProvider: {
-        name: "Simon Rothert",
-        imageUrl: "/EXAMPLE_DJ_PLACEHOLDER.jpg",
-      },
-      services,
-    },
-  };
-};
+// export const getServerSideProps: GetServerSideProps<
+//   UserLandingProps
+// > = async () => {
+//   const services: Service[] = [
+//     { id: "0", title: "Shoutout", type: "text" },
+//     {
+//       id: "1",
+//       title: "Song request",
+//       type: "options",
+//       options: [
+//         {
+//           id: "2",
+//           label: "A milli (house remix)",
+//         },
+//         {
+//           id: "15",
+//           label: "Dj Angerfist - Pennywise",
+//         },
+//       ],
+//     },
+//     { id: "3", title: "Selfie", type: "text" },
+//   ];
+//   return {
+//     props: {
+//       serviceProvider: {
+//         name: "Simon Rothert",
+//         imageUrl: "/EXAMPLE_DJ_PLACEHOLDER.jpg",
+//       },
+//       services,
+//     },
+//   };
+// };
 
 export default UserLanding;
