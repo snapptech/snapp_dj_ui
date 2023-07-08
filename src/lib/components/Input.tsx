@@ -12,7 +12,7 @@ export const Input = ({
   return (
     <>
       <input
-        className={classNames("border rounded-md bg-input p-3 leading-none", {
+        className={classNames("border rounded-md bg-input p-3 leading-none w-full", {
           "border-red-500": error,
         })}
         placeholder={placeholder}
