@@ -1,7 +1,10 @@
 import songs from "@/data/songs.json";
 import { SongDisplayPic } from "@/lib/components/SongDisplayPic";
 import { Avatar } from "@/lib/components/Avatar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { User, getUser } from "@/lib/modals/user";
+import { useRouter } from "next/router";
+import { LoadingSpinner } from "@/lib/components/LoadingSpinner";
 
 type Song = {
   id: string;
@@ -10,9 +13,22 @@ type Song = {
 };
 
 const MySongList = () => {
+  const {
+    query: { dj_id },
+  } = useRouter();
+
   const [data, setData] = useState(songs);
   const [selectedSong, setSelectedSong] = useState<Song[]>([]);
   const [input, setInput] = useState("");
+  const [dj, setDj] = useState<User>();
+
+  useEffect(() => {
+    (async () => {
+      if (!dj_id || typeof dj_id !== "string") return;
+      const { result, error } = await getUser(dj_id);
+      setDj(result || undefined);
+    })();
+  }, [dj_id]);
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setInput((e.target as HTMLInputElement).value);
   };
@@ -21,14 +37,22 @@ const MySongList = () => {
     console.log(selectedSong);
   };
 
+  if (!dj)
+    return (
+      <div className="h-screen w-screen flex justify-center items-center">
+        <LoadingSpinner />
+      </div>
+    );
+
   return (
     <main className="px-5 py-2 min-h-screen flex flex-col justify-between">
       <div className="flex flex-row justify-center flex-1 items-center">
-        <Avatar image="/images/profile_pic.png" onChange={() => {}} />
+        <Avatar image={dj?.photoUrl} onChange={() => {}} />
       </div>
       <div className="flex flex-row justify-center flex-1 items-center">
         <p className="text-lg text-bold">
-          DJ Nifty <span className="text-base">( NL )</span>
+          {dj?.artistName}{" "}
+          <span className="text-base">( {dj?.countryCode} )</span>
         </p>
       </div>
 
@@ -43,7 +67,7 @@ const MySongList = () => {
             <SongDisplayPic image="/images/songdisplaypic.png" />
           </div>
           <div className="px-2 py-1">
-            <h4> {item.title}</h4>
+            <h4>{item.title}</h4>
             <p>{item.artist}</p>
           </div>
         </div>
