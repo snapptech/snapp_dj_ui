@@ -182,13 +182,13 @@ const Profile = () => {
         <ProfileForm setUserProfile={setUserProfile} authUser={authUser} />
         <p className="text-bold pt-3">
           Print QR-code:
-          <Link href="/dj/code" className="underline">
+          <Link href="/dj/code" className="ml-1 underline">
             click here
           </Link>
         </p>
         <p className="text-bold pt-3">
           Your music library:
-          <Link href="/dj/code" className="underline">
+          <Link href="/dj/code" className="ml-1 underline">
             click here
           </Link>
         </p>
