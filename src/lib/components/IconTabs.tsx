@@ -41,7 +41,7 @@ export const IconTabs = ({ selectedTab }: IIconTabs) => {
         </li>
         <li>
           <Link
-            href="/dj"
+            href="/dj/requests"
             className={classNames("w-16 h-16 inline-block p-2 text-gray", {
               "!text-primary": selectedTab === "home",
             })}
