@@ -12,7 +12,7 @@ import Button from "@/lib/components/Button";
 
 const SongPage = () => {
   const {
-    query: { song_id: rawSongId, cents: centsRaw },
+    query: { dj_id, song_id: rawSongId, cents: centsRaw },
   } = useRouter();
 
   const { push } = useRouter();
@@ -25,22 +25,23 @@ const SongPage = () => {
     formState: { errors },
   } = useForm<RequestData>();
 
-  const songId = useMemo(
-    () => (typeof rawSongId === "string" ? parseInt(rawSongId) : undefined),
-    [rawSongId]
-  );
-
   const amount = useMemo(
     () => (typeof centsRaw === "string" ? parseInt(centsRaw) : 0),
     [centsRaw]
   );
 
-  const song = useMemo(() => (songId ? songs[songId] : undefined), [songId]);
+  const song = useMemo(
+    () =>
+      typeof rawSongId === "string"
+        ? songs.find(({ uuid }) => uuid === rawSongId)
+        : undefined,
+    [rawSongId]
+  );
   const onSubmit = useCallback(
     async (request: RequestData) => {
       const { result } = await addRequest(request);
       const request_id = result?.id;
-      push(`request/${request_id}`);
+      push(`/user/qr/request?dj_id=${dj_id}&song_id=${rawSongId}&request_id=${request_id}`);
     },
     [push]
   );
@@ -69,10 +70,10 @@ const SongPage = () => {
         className="rounded mb-4"
         alt={song?.title}
       />
-      <p className="text-2xl font-sf-pro font-bold mb-1">{song.title}</p>
-      <p className="text-lg font-sf-pro font-medium mb-5">{song.artist}</p>
+      <p className="text-center w-full text-2xl font-sf-pro font-bold mb-1">{song.title}</p>
+      <p className="text-center w-full text-lg font-sf-pro font-medium mb-5">{song.artist}</p>
       <p className="text-2xl font-sf-pro font-light mb-5">
-        €{amount.toFixed(2).replace(".", ",")}
+        €{(amount / 100).toFixed(2).replace(".", ",")}
       </p>
       <div className="w-full">
         <hr className="-mx-8 mb-5" />
@@ -83,7 +84,8 @@ const SongPage = () => {
         error={errors.email}
       />
       <p className="w-full text-center text-xs mb-6 mt-3">
-        Email needed for refund if DJ doesn&apos;t play your song within 30 minutes.
+        Email needed for refund if DJ doesn&apos;t play your song within 30
+        minutes.
       </p>
 
       <Button

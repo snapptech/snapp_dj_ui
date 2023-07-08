@@ -1,146 +1,136 @@
-import { AnimatePresence } from "framer-motion";
-// import { GetServerSideProps } from "next";
-import Image from "next/image";
-import { useState } from "react";
-import { motion } from "framer-motion";
+import songs from "@/data/songs.json";
+import { SongDisplayPic } from "@/lib/components/SongDisplayPic";
+import { Avatar } from "@/lib/components/Avatar";
+import { useCallback, useEffect, useState } from "react";
+import { User, getUser } from "@/lib/modals/user";
+import { useRouter } from "next/router";
+import { LoadingSpinner } from "@/lib/components/LoadingSpinner";
 import classNames from "classnames";
+import Link from "next/link";
+import { motion } from "framer-motion";
 
-type ServiceProvider = {
-  name: string;
-  imageUrl: string;
-};
-
-type Service = {
+type Song = {
   title: string;
-  id: string;
-} & (OptionsService | TextService);
-
-export type OptionsService = {
-  type: "options";
-  options: { id: string; label: string }[];
-};
-export type TextService = { type: "text" };
-
-type UserLandingProps = {
-  serviceProvider: ServiceProvider;
-  services: Service[];
+  artist: string;
+  uuid: string;
 };
 
-const ServiceItem = ({
-  service,
-  onSelect,
-  isSelected,
-}: {
-  service: Service;
-  onSelect(): void;
-  isSelected: boolean;
-}) => {
-  return (
-    <motion.div
-      className={classNames("flex flex-col border rounded-xl")}
-      key={service?.id}
-      onClick={onSelect}
-    >
-      <div
-        className={classNames("flex flex-row border-b px-4 py-2", {
-          "border-transparent": !isSelected,
-        })}
-      >
-        {service?.title}
+const MySongList = () => {
+  const {
+    query: { dj_id },
+    push,
+  } = useRouter();
+
+  const [data, setData] = useState(songs);
+  const [selectedSong, setSelectedSong] = useState<Song>();
+  const [input, setInput] = useState("");
+  const [dj, setDj] = useState<User>();
+
+  useEffect(() => {
+    (async () => {
+      if (!dj_id || typeof dj_id !== "string") return;
+      const { result, error } = await getUser(dj_id);
+      setDj(result || undefined);
+    })();
+  }, [dj_id]);
+
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setInput((e.target as HTMLInputElement).value);
+  };
+  const handleSubmit = useCallback(() => {
+    console.log({ input });
+    push(`/user/qr/song?dj_id=${dj_id}&song_id=${selectedSong?.uuid}&cents=${input}`);
+  }, [input, push, dj_id, selectedSong?.uuid]);
+
+  if (!dj)
+    return (
+      <div className="h-screen w-screen flex justify-center items-center">
+        <LoadingSpinner />
       </div>
-      <AnimatePresence>
-        {service?.type === "options" && isSelected && (
-          <>
-            {service?.options.map(({ id, label }) => (
-              <motion.div
-                className="flex flex-row overflow-hidden"
-                key={id}
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-              >
-                <div className="px-4 py-2">{label}</div>
-              </motion.div>
-            ))}
-          </>
-        )}
-        {service?.type === "text" && isSelected && (
-          <motion.div
-            className="flex flex-row overflow-hidden"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
+    );
+
+  return (
+    <main className="px-5 py-2 min-h-screen flex flex-col justify-between">
+      <div className="flex flex-row justify-center flex-1 items-center mt-16 mb-5">
+        <Avatar image={dj?.photoUrl} onChange={() => {}} />
+      </div>
+      <div className="flex flex-row justify-center flex-1 items-center">
+        <p className="text-lg text-bold">
+          {dj?.artistName}{" "}
+          <span className="text-base">( {dj?.countryCode} )</span>
+        </p>
+      </div>
+
+      <hr className="-mx-5 my-5" />
+
+      {/* <div onClick={(e) => onSelectSong(e)}> */}
+      {data.songs.slice(50).map((item) => (
+        <div
+          onClick={() => setSelectedSong(item)}
+          className={classNames("flex mb-6 transition-all", {})}
+          key={item.uuid}
+        >
+          <div
+            className={classNames("h-12 w-12 transition-all mr-4 relative", {
+              "ml-4": item.uuid === selectedSong?.uuid,
+            })}
           >
-            <textarea
-              rows={2}
-              className="bg-transparent p-4 w-full"
-              placeholder="Type something"
+            <SongDisplayPic image="/images/songdisplaypic.png" />
+            <div
+              className={classNames(
+                "transition-all absolute left-1/2 inset-y-0 -right-4 -z-[1]",
+                {
+                  "bg-primary": item.uuid === selectedSong?.uuid,
+                }
+              )}
             />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
+          </div>
+          <div
+            className={classNames("border-b w-full transition-all", {
+              "bg-primary": item.uuid === selectedSong?.uuid,
+            })}
+          >
+            <h4 className="font-bold">{item.title}</h4>
+            <p className=" text-xs  ">{item.artist}</p>
+          </div>
+        </div>
+      ))}
+      {/* </div> */}
+      {selectedSong && (
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          animate={{ opacity: 1, y: 0 }}
+          className=" fixed -bottom-4 pb-4 w-full bg-black"
+        >
+          <h3 className="text-sm text-bold pr-5 my-4">Song request tip</h3>
+          <div className="  flex flex-row justify-center flex-1 items-center gap-3 h-12">
+            <Link
+              href={`/user/qr/song?dj_id=${dj_id}&song_id=${selectedSong?.uuid}&cents=${500}`}
+              className="text-xl h-full flex items-center justify-start flex-row text-bold border-r border-white w-1/3"
+            >
+              5,00
+            </Link>
+
+            <Link
+              href={`/user/qr/song?dj_id=${dj_id}&song_id=${selectedSong?.uuid}&cents=${1000}`}
+              className="text-xl h-full flex items-center justify-start flex-row text-bold border-r border-white w-1/3"
+            >
+              10,00
+            </Link>
+            <div className="w-1/3">
+              <input
+                className="text-xl flex items-center justify-start flex-row text-bold bg-black h-full"
+                placeholder="0,00$"
+                type="text"
+                onChange={handleChange}
+                onSubmit={handleSubmit}
+              />
+              
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </main>
   );
 };
-
-function UserLanding({ serviceProvider, services = [] }: UserLandingProps) {
-  const [selected, setSelected] = useState<string>();
-
-  return (
-    <div className="container p-8 gap-2 flex flex-col">
-      <div className="flex flex-row gap-2 mb-4">
-        <Image
-          src={serviceProvider?.imageUrl}
-          width={64}
-          height={64}
-          className="border rounded-full overflow-hidden w-16 h-16 object-cover object-center "
-          alt={`Image of ${serviceProvider?.name}`}
-        />
-        <h1>{serviceProvider?.name}</h1>
-      </div>
-      {services.map((service, i) => (
-        <ServiceItem
-          key={service?.id}
-          onSelect={() => setSelected(service?.id)}
-          isSelected={service?.id === selected}
-          service={service}
-        />
-      ))}
-    </div>
-  );
-}
-
-// export const getServerSideProps: GetServerSideProps<
-//   UserLandingProps
-// > = async () => {
-//   const services: Service[] = [
-//     { id: "0", title: "Shoutout", type: "text" },
-//     {
-//       id: "1",
-//       title: "Song request",
-//       type: "options",
-//       options: [
-//         {
-//           id: "2",
-//           label: "A milli (house remix)",
-//         },
-//         {
-//           id: "15",
-//           label: "Dj Angerfist - Pennywise",
-//         },
-//       ],
-//     },
-//     { id: "3", title: "Selfie", type: "text" },
-//   ];
-//   return {
-//     props: {
-//       serviceProvider: {
-//         name: "Simon Rothert",
-//         imageUrl: "/EXAMPLE_DJ_PLACEHOLDER.jpg",
-//       },
-//       services,
-//     },
-//   };
-// };
-
-export default UserLanding;
+export default MySongList;

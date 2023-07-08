@@ -14,7 +14,7 @@ const Code = () => {
 
   useEffect(() => {
     if (!user) return;
-    setUrl(`https://localhost:3000/new-request/${user.uid}`);
+    setUrl(`${window.location.origin}/user/qr?dj_id=${user.uid}`);
   }, [user]);
 
   const downloadQr = async () => {
