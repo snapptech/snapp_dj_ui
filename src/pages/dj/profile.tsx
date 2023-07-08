@@ -1,6 +1,7 @@
 import { Avatar } from "@/lib/components/Avatar";
 import { IconTabs } from "@/lib/components/IconTabs";
 import { Input } from "@/lib/components/Input";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 
 const Info = ({ leftTitle, leftValue, rightTitle, rightValue }: any) => (
@@ -54,9 +55,9 @@ const Profile = () => {
         <ProfileForm />
         <p className="text-bold pt-3">
           Print QR-code:{" "}
-          <a href="#" className="underline">
+          <Link href="/dj/code" className="underline">
             click here
-          </a>
+          </Link>
         </p>
       </div>
       <IconTabs selectedTab="profile" />

@@ -1,6 +1,6 @@
 type IAvatar = {
   image?: string;
-  onChange(image: File): void;
+  onChange?: (image: File) => void;
 };
 
 export const Avatar = ({ image, onChange }: IAvatar) => {
