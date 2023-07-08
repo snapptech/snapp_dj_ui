@@ -73,7 +73,7 @@ const MySongList = () => {
           No songs available in the DJ&apos;s library for you to select.
         </div>
       )}
-      <div class="flex-1">
+      <div className="flex-1">
       {data.map((item) => (
         <div
           onClick={() => setSelectedSong(item)}

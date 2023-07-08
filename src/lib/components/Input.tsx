@@ -16,7 +16,7 @@ export const Input = ({
       <input
         className={classNames(
           className,
-          "border rounded-md bg-input p-3 leading-none w-full",
+          "border rounded-md bg-input p-3 leading-none w-full h-12",
           {
             "border-red-500": error,
           }
