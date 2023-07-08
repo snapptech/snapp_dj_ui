@@ -1,40 +1,16 @@
+import "react-phone-input-2/lib/style.css";
+
 import { useAuthContext } from "@/lib/auth/AuthContext";
 import AuthLayout from "@/lib/auth/AuthLayout";
-import { User, updateUser } from "@/lib/modals/user";
+import { updateUser, User } from "@/lib/modals/user";
 import classNames from "classnames";
-import { updateCurrentUser } from "firebase/auth";
-import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { useCallback, useState } from "react";
 import { CountryDropdown } from "react-country-region-selector";
-import { useForm, Controller } from "react-hook-form";
-import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
+import { Controller, useForm } from "react-hook-form";
+import { Input } from "@/lib/components/Input";
 
 type DetailsFormProps = {};
-
-const Input = ({
-  placeholder,
-  error,
-  register,
-}: {
-  placeholder: string;
-  register: any;
-  error?: { message?: string };
-}) => {
-  return (
-    <>
-      <input
-        className={classNames("border rounded-md bg-input p-3 leading-none", {
-          "border-red-500": error,
-        })}
-        placeholder={placeholder}
-        {...register}
-      />
-      {error?.message && <span className="text-red-500">{error.message}</span>}
-    </>
-  );
-};
 
 export const Form = () => {
   const {
@@ -60,7 +36,7 @@ export const Form = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col container gap-5 text-center px-8 h-full py-6"
+      className="flex flex-col container gap-5 px-8 h-full py-6 text-center basis-full min-h-screen"
     >
       <p className="text-3xl bold">Create an account to start earning!</p>
 
@@ -74,22 +50,6 @@ export const Form = () => {
         register={register("artistName", { required: "name is required" })}
         error={errors.artistName}
       />
-      {/* <Controller
-        name="phoneNumber"
-        control={control}
-        render={({ field: { name, onChange, value } }) => (
-          <PhoneInput
-            containerClass="text-left w-full"
-            // inputClass={classNames("border rounded-md bg-input p-3 leading-none", {
-            //   "border-red-500": errors.countryCode,
-            // })}
-            // defaultOptionLabel="Select Country"
-            // name={name}
-            value={value}
-            onChange={onChange}
-          />
-        )}
-      /> */}
       <Input
         placeholder="phoneNumber"
         register={register("phoneNumber", {
@@ -156,13 +116,5 @@ function DetailsForm({}: DetailsFormProps) {
     </AuthLayout>
   );
 }
-
-export const getServerSideProps: GetServerSideProps<
-  DetailsFormProps
-> = async () => {
-  return {
-    props: {},
-  };
-};
 
 export default DetailsForm;
