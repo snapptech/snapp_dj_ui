@@ -1,33 +1,44 @@
-import 'react-phone-input-2/lib/style.css';
+import "react-phone-input-2/lib/style.css";
 
-import { useAuthContext } from '@/lib/auth/AuthContext';
-import { AuthLayoutWrapper } from '@/lib/auth/AuthLayout';
-import { Input } from '@/lib/components/Input';
-import { updateUser, User } from '@/lib/modals/user';
-import classNames from 'classnames';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useCallback } from 'react';
-import { CountryDropdown } from 'react-country-region-selector';
-import { Controller, useForm } from 'react-hook-form';
+import { useAuthContext } from "@/lib/auth/AuthContext";
+import { AuthLayoutWrapper } from "@/lib/auth/AuthLayout";
+import { Input } from "@/lib/components/Input";
+import { getUser, updateUser, User } from "@/lib/modals/user";
+import classNames from "classnames";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useCallback, useEffect } from "react";
+import { CountryDropdown } from "react-country-region-selector";
+import { Controller, useForm } from "react-hook-form";
 
 export const DetailsForm = () => {
   const {
     register,
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<User>();
-
   const { user: authUser } = useAuthContext();
   const { push } = useRouter();
 
-  // TODO: update the actual user object
+  useEffect(() => {
+    (async () => {
+      if (!authUser) return;
+      const user = (await getUser(authUser.uid)).result;
+      if (!user) return;
+      reset(user);
+    })();
+  }, [authUser, reset]);
+
   const onSubmit = useCallback(
     async (user: User) => {
       if (!authUser) return;
-      await updateUser(authUser.uid, user);
-      push("/dj/signup/pictures");
+      await updateUser(authUser.uid, {
+        ...user,
+        photoUrl: authUser.photoURL || undefined,
+      });
+      push("/dj/signup/picture");
     },
     [authUser, push]
   );
