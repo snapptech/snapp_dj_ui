@@ -1,13 +1,5 @@
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
+import SignUp1 from "./dj/signup";
 
 export default function Home() {
-  return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      Homepage
-    </main>
-  );
+  return <SignUp1 />;
 }
