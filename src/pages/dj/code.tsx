@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import QRCode from "react-qr-code";
 import domtoimage from "dom-to-image";
 import { saveAs } from "file-saver";
+import Link from "next/link";
 
 const Code = () => {
   const { user } = useAuthContext();
@@ -35,7 +36,12 @@ const Code = () => {
           Download the QR code
         </button>
       </div>
-
+      <p className="text-bold pt-3">
+        Back to Profile:
+        <Link href="/dj/profile" className="underline">
+          click here
+        </Link>
+      </p>
       <IconTabs />
     </div>
   );

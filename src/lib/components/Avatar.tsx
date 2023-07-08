@@ -1,6 +1,6 @@
 type IAvatar = {
   image?: string;
-  onChange(image: File): void;
+  onChange?: (image: File) => void;
 };
 
 export const Avatar = ({ image, onChange }: IAvatar) => {
@@ -35,7 +35,7 @@ export const Avatar = ({ image, onChange }: IAvatar) => {
           id="avatar-input"
           hidden
           onChange={(input) =>
-            input.target.files?.[0] && onChange(input.target.files[0])
+            input.target.files?.[0] && onChange?.(input.target.files[0])
           }
         />
       </label>

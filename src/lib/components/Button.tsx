@@ -1,22 +1,32 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import classNames from "classnames";
 
 type IButton = {
   type: "button" | "submit" | "reset";
-  value: string;
+  value?: string;
   onClick: (event: any) => void;
-  color: "primary" | "secondary";
+  color: "primary" | "secondary" | "ternary";
   fullWidth?: boolean;
+  className?: string;
 };
 
-const Button = ({ type, value, onClick, color, fullWidth }: IButton) => {
+const Button = ({
+  type,
+  value,
+  onClick,
+  color,
+  fullWidth,
+  className,
+  children,
+}: PropsWithChildren<IButton>) => {
   return (
     <button
       className={classNames(
-        "text-base font-bold leading-relaxed tracking-tight rounded-lg px-4 py-4",
+        className,
+        "text-base font-bold leading-relaxed tracking-tight rounded-2xl p-2",
         {
-          "bg-primary text-white": color === "primary",
-          "border border-white": color === "secondary",
+          " text-xl rounded-2xl bg-primary text-white": color === "primary",
+          "rounded-md bg-input border border-white": color === "secondary",
           "w-full": fullWidth,
         }
       )}
@@ -24,6 +34,7 @@ const Button = ({ type, value, onClick, color, fullWidth }: IButton) => {
       onClick={onClick}
     >
       {value}
+      {children}
     </button>
   );
 };
