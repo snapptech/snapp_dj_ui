@@ -2,7 +2,7 @@ import { useAuthContext } from "@/lib/auth/AuthContext";
 import { AuthLayoutWrapper } from "@/lib/auth/AuthLayout";
 import { IconTabs } from "@/lib/components/IconTabs";
 import { Input } from "@/lib/components/Input";
-import { getUser } from "@/lib/modals/user";
+import { User, getUser } from "@/lib/modals/user";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
@@ -23,16 +23,16 @@ const Settings = () => {
 
       if (user.error || !userData) return;
 
-      setValue("fullname", userData.name);
-      setValue("phone_number", userData.phoneNumber);
-      setValue("business_name", userData.artistName);
-      setValue("business_number", userData.businessNumber);
-      setValue("bank_acc_name", userData.bankAccName);
-      setValue("bank_acc_number", userData.bankAccNumber);
+      setValue("name", userData.name);
+      setValue("phoneNumber", userData.phoneNumber);
+      setValue("artistName", userData.artistName);
+      setValue("businessNumber", userData.businessNumber);
+      setValue("bankAccName", userData.bankAccName);
+      setValue("bankAccNumber", userData.bankAccNumber);
     }
 
     updateUserSettings();
-  }, [authUser]);
+  }, [authUser, setValue]);
 
   return (
     <div className="flex flex-col container gap-5 text-center px-10 h-full py-6">
@@ -51,51 +51,51 @@ const Settings = () => {
       <form className="space-y-5">
         <Input
           placeholder="Full Name"
-          register={register("fullname", {
+          register={register("name", {
             required: "Full name is required",
             disabled: true,
           })}
-          error={errors.fullname}
+          error={errors.name}
         />
         <Input
           placeholder="Phone number"
-          register={register("phone_number", {
+          register={register("phoneNumber", {
             required: "Phone number is required",
             disabled: true,
           })}
-          error={errors.phone_number}
+          error={errors.phoneNumber}
         />
         <Input
           placeholder="Business name"
-          register={register("business_name", {
+          register={register("artistName", {
             required: "Business name is required",
             disabled: true,
           })}
-          error={errors.business_name}
+          error={errors.artistName}
         />
         <Input
           placeholder="Business registration number"
-          register={register("business_number", {
+          register={register("businessNumber", {
             required: "Business number is required",
             disabled: true,
           })}
-          error={errors.business_number}
+          error={errors.businessNumber}
         />
         <Input
           placeholder="Bank account name"
-          register={register("bank_acc_name", {
+          register={register("bankAccName", {
             required: "Bank account name is required",
             disabled: true,
           })}
-          error={errors.bank_acc_name}
+          error={errors.bankAccName}
         />
         <Input
           placeholder="Bank account number"
-          register={register("bank_acc_number", {
+          register={register("bankAccNumber", {
             required: "Bank account number is required",
             disabled: true,
           })}
-          error={errors.bank_acc_number}
+          error={errors.bankAccNumber}
         />
         <p className="text-left w-full">Support: +31 (0)76 231 1062</p>
       </form>
