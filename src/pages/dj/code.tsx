@@ -10,7 +10,7 @@ import Link from "next/link";
 const Code = () => {
   const { user } = useAuthContext();
   const [url, setUrl] = useState("");
-  const qrContainerRef = useRef<HTMLDivElement>(null);
+  const qrContainerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!user) return;
@@ -27,21 +27,17 @@ const Code = () => {
 
   return (
     <div className="flex min-h-screen flex-col container gap-5 text-center px-10 h-full py-6">
-      <h1 className="text-3xl mt-4 font-bold">Code</h1>
+      <Link href="/dj/profile" className="text-bold pt-3 mr-auto">
+        {'\<'} back to profile
+      </Link>
       <div className="w-full flex flex-col items-center py-8 flex-1">
-        <div ref={qrContainerRef}>
+        <button ref={qrContainerRef} onClick={downloadQr}>
           <QRCode value={url} />
-        </div>
-        <button className="mt-8" onClick={downloadQr}>
+        </button>
+        <button className="mt-8 underline" onClick={downloadQr}>
           Download the QR code
         </button>
       </div>
-      <p className="text-bold pt-3">
-        Back to Profile:
-        <Link href="/dj/profile" className="underline">
-          click here
-        </Link>
-      </p>
       <IconTabs />
     </div>
   );

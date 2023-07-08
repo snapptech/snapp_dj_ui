@@ -81,7 +81,7 @@ const ProfileForm: FC<ProfileFormProps> = ({ setUserProfile, authUser }) => {
 
   return (
     <form>
-      <div className="flex flex-col justify-between gap-3 pt-3">
+      <div className="flex flex-col justify-between gap-5 pt-3">
         <Input register={register("name")} placeholder="DJ Nifty" />
         <Input
           register={register("email", { disabled: true })}
@@ -139,7 +139,7 @@ const Profile = () => {
   }, [loadAllRequests]);
 
   return (
-    <div className="px-5 py-2 min-h-screen flex flex-col justify-between">
+    <div className="px-8 py-2 min-h-screen flex flex-col justify-between">
       <div>
         <div className="flex justify-end absolute top-4 right-4">
           <Link href="/dj/settings">
@@ -183,15 +183,15 @@ const Profile = () => {
           />
         </div>
         <ProfileForm setUserProfile={setUserProfile} authUser={authUser} />
-        <p className="text-bold pt-3">
+        <p className="pt-3">
           Print QR-code:
-          <Link href="/dj/code" className="ml-1 underline">
+          <Link href="/dj/code" className="ml-1 text-bold underline">
             click here
           </Link>
         </p>
-        <p className="text-bold pt-3">
+        <p className="pt-3">
           Your music library:
-          <Link href="/dj/code" className="ml-1 underline">
+          <Link href="/dj/library" className="ml-1 text-bold underline">
             click here
           </Link>
         </p>

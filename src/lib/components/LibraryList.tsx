@@ -41,7 +41,7 @@ export const LibraryList = ({
               />
             </div>
             <div className="flex flex-row justify-start items-center flex-1 border-b border-gray border-opacity-30 pb-2 w-full overflow-hidden">
-              <div className="flex flex-col w-full overflow-hidden gap-1">
+              <div className="flex flex-col w-full overflow-hidden gap-1 pr-2">
                 <p className="text-lg leading-none font-bold truncate w-full">{song.title}</p>
                 <p className="text-sm leading-none truncate w-full">{song.artist}</p>
               </div>

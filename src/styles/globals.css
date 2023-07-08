@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-black text-white min-h-screen;
+  @apply bg-black text-white min-h-screen tracking-wider;
 }
 
 .lds-default {
