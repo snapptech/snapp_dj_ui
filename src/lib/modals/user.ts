@@ -7,6 +7,11 @@ const USER_COLLECTION = "users";
 export type User = {
   id: string;
   name: string;
+  artistName: string;
+  phoneNumber: string;
+  countryCode: string;
+  companyName: string;
+  KvKNumber: string;
   email: string;
   photoUrl: string;
   createdAt: Date;

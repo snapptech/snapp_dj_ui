@@ -1,3 +1,5 @@
+import Button from "@/lib/components/Button";
+
 const Info = ({ leftTitle, leftValue, rightTitle, rightValue }: any) => (
   <div className="flex justify-between">
     <div>
@@ -27,8 +29,18 @@ const NewRequest = () => (
       rightValue="24:59"
     />
     <div className="flex justify-between">
-      <button>Accept</button>
-      <button>Decline</button>
+      <Button
+        type="submit"
+        onClick={console.log}
+        value="Accept"
+        color="primary"
+      />
+      <Button
+        type="submit"
+        onClick={console.log}
+        value="Decline"
+        color="secondary"
+      />
     </div>
   </>
 );
@@ -53,7 +65,7 @@ const AcceptedRequest = ({
       <p className={`text ${shouldWarn && "text-error"}`}>{countdown}</p>
     </div>
     <div>
-      <button>Played</button>
+      <Button type="submit" onClick={console.log} value="Played" />
     </div>
   </div>
 );
