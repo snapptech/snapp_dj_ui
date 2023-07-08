@@ -1,6 +1,7 @@
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "./db";
 import { storage } from "./storage";
+import { ref, uploadBytes, uploadBytesResumable } from "firebase/storage";
 
 const USER_COLLECTION = "users";
 
@@ -53,7 +54,7 @@ export const updateUser = async (id: string, data: Partial<User>) => {
 
 export const uploadImage = async (id: string, file: File) => {
   const storageRef = ref(storage, `users/${id}`);
-  const uploadTask = uploadBytesResumable(storageRef, file);
+  const uploadTask = uploadBytes(storageRef, file);
 
   let result = null;
   let error = null;
@@ -67,9 +68,3 @@ export const uploadImage = async (id: string, file: File) => {
   return { result, error };
 };
 
-function ref(storage: any, arg1: string) {
-  throw new Error("Function not implemented.");
-}
-function uploadBytesResumable(storageRef: void, file: File) {
-  throw new Error("Function not implemented.");
-}
