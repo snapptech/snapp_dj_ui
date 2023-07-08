@@ -7,13 +7,15 @@ import { LoadingSpinner } from "@/lib/components/LoadingSpinner";
 import { Input } from "@/lib/components/Input";
 import { User } from "@/lib/modals/user";
 import { useForm } from "react-hook-form";
-import { RequestData, updateRequest } from "@/lib/modals/requests";
+import { RequestData, addRequest, updateRequest } from "@/lib/modals/requests";
 import Button from "@/lib/components/Button";
 
 const SongPage = () => {
   const {
     query: { song_id: rawSongId, cents: centsRaw },
   } = useRouter();
+
+  const { push } = useRouter();
 
   const {
     register,
@@ -33,16 +35,20 @@ const SongPage = () => {
     [centsRaw]
   );
 
+  const song = useMemo(() => (songId ? songs[songId] : undefined), [songId]);
+  const onSubmit = useCallback(
+    async (request: RequestData) => {
+      const { result } = await addRequest(request);
+      const request_id = result?.id;
+      push(`request/${request_id}`);
+    },
+    [push]
+  );
+
   useEffect(() => {
     if (!song) return;
     reset({ songName: song.title, artist: song.artist, amount });
-  });
-
-  const song = useMemo(() => (songId ? songs[songId] : undefined), [songId]);
-  const onSubmit = useCallback(async (user: RequestData) => {
-    await updateRequest("asdf", user);
-    // push("/dj/onboarding/picture");
-  }, []);
+  }, [amount, reset, song]);
 
   if (!song)
     return (
@@ -73,10 +79,10 @@ const SongPage = () => {
       </div>
       <Input
         placeholder="Email"
-        className="mb-3"
-        register={register("email")}
+        register={register("email", { required: "Email is required" })}
+        error={errors.email}
       />
-      <p className="w-full text-center text-xs mb-6">
+      <p className="w-full text-center text-xs mb-6 mt-3">
         Email needed for refund if DJ doesn't play your song within 30 minutes.
       </p>
 

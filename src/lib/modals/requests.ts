@@ -1,4 +1,5 @@
 import {
+  addDoc,
   collection,
   doc,
   getDoc,
@@ -72,5 +73,18 @@ export const updateRequest = async (id: string, data: Partial<RequestData>) => {
     error = e;
   }
 
+  return { result, error };
+};
+
+export const addRequest = async (data: Partial<RequestData>) => {
+  let result = null;
+  let error = null;
+
+  try {
+
+    result = await addDoc(collection(db, REQUEST_COLLECTION), data);
+  } catch (e) {
+    error = e;
+  }
   return { result, error };
 };
