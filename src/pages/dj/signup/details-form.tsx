@@ -9,6 +9,7 @@ import { useCallback, useState } from "react";
 import { CountryDropdown } from "react-country-region-selector";
 import { Controller, useForm } from "react-hook-form";
 import { Input } from "@/lib/components/Input";
+import { useRouter } from "next/router";
 
 type DetailsFormProps = {};
 
@@ -22,13 +23,14 @@ export const Form = () => {
   } = useForm<User>();
 
   const { user: authUser } = useAuthContext();
+  const { push } = useRouter();
 
   // TODO: update the actual user object
   const onSubmit = useCallback(
-    (user: User) => {
-      console.log({ authUser });
+    async (user: User) => {
       if (!authUser) return;
-      updateUser(authUser.uid, user);
+      await updateUser(authUser.uid, user);
+      push("/dj/signup/pictures");
     },
     [authUser]
   );
