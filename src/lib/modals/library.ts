@@ -1,5 +1,6 @@
 import {
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -63,6 +64,19 @@ export const addUpdateSong = async (id: string, data: Partial<LibraryData>) => {
     result = await setDoc(doc(db, LIBRARY_COLLECTION, id), data, {
       merge: true,
     });
+  } catch (e) {
+    error = e;
+  }
+
+  return { result, error };
+};
+
+export const removeSong = async (songId: string) => {
+  let result = null;
+  let error = null;
+
+  try {
+    result = await deleteDoc(doc(db, LIBRARY_COLLECTION, songId));
   } catch (e) {
     error = e;
   }
