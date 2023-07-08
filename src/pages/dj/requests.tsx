@@ -2,8 +2,8 @@ import { useAuthContext } from "@/lib/auth/AuthContext";
 import { AuthLayoutWrapper } from "@/lib/auth/AuthLayout";
 import Button from "@/lib/components/Button";
 import { IconTabs } from "@/lib/components/IconTabs";
-import { RequestData, getRequests } from "@/lib/modals/requests";
-import { useEffect, useState } from "react";
+import { RequestData, getRequests, updateRequest } from "@/lib/modals/requests";
+import { FC, useCallback, useEffect, useState } from "react";
 
 const Info = ({ leftTitle, leftValue, rightTitle, rightValue }: any) => (
   <div className="flex justify-between">
@@ -18,32 +18,45 @@ const Info = ({ leftTitle, leftValue, rightTitle, rightValue }: any) => (
   </div>
 );
 
-const NewRequest = () => (
+type NewRequestProps = Pick<
+  RequestData,
+  "songName" | "amount" | "createdAt" | "id" | "artist"
+> & {
+  id: string;
+  onSubmit: (id: string, status: "approved" | "rejected") => void;
+};
+
+const NewRequest: FC<NewRequestProps> = ({
+  songName,
+  artist,
+  amount,
+  onSubmit,
+  id,
+}) => (
   <>
-    <p className="text-center">Request(s) (5)</p>
     <Info
       leftTitle="Song"
-      leftValue="Titanium"
+      leftValue={songName}
       rightTitle="Tip"
-      rightValue="€10,00"
+      rightValue={`€${amount}`}
     />
     <Info
       leftTitle="Artist"
-      leftValue="David Guetta"
+      leftValue={artist}
       rightTitle="Countdown"
       rightValue="24:59"
     />
     <div className="flex justify-between gap-6 pt-3">
       <Button
         type="submit"
-        onClick={console.log}
+        onClick={() => onSubmit(id, "approved")}
         value="Accept"
         color="primary"
         fullWidth
       />
       <Button
         type="submit"
-        onClick={console.log}
+        onClick={() => onSubmit(id, "rejected")}
         value="Decline"
         color="secondary"
         fullWidth
@@ -52,20 +65,31 @@ const NewRequest = () => (
   </>
 );
 
-const AcceptedRequest = ({
+type AcceptedRequestProps = Pick<
+  RequestData,
+  "songName" | "amount" | "createdAt" | "id"
+> & {
+  onSubmit: (id: string, status: "done") => void;
+};
+const AcceptedRequest: FC<AcceptedRequestProps> = ({
+  id,
   songName,
   amount,
   createdAt,
-}: Pick<RequestData, "songName" | "amount" | "createdAt">) => {
+  onSubmit,
+}) => {
   const [countdown, setCountdown] = useState("00:00");
 
   useEffect(() => {
     const interval = setInterval(() => {
       const now = new Date();
-      const created = createdAt;
-      const diff = now.getTime() - created.getTime();
-      const minutes = Math.floor(diff / 1000 / 60);
-      const seconds = Math.floor(diff / 1000) % 60;
+      const created = new Date(createdAt * 1000);
+      const timeElapsed = now.getTime() - created.getTime();
+
+      const remainingTime = 25 * 60 * 1000 - timeElapsed;
+
+      const minutes = Math.floor(remainingTime / 1000 / 60);
+      const seconds = Math.floor(remainingTime / 1000) % 60;
       setCountdown(`${minutes < 0 ? 0 : minutes}:${seconds < 0 ? 0 : seconds}`);
     }, 1000);
 
@@ -89,7 +113,9 @@ const AcceptedRequest = ({
       <div>
         <Button
           type="submit"
-          onClick={console.log}
+          onClick={() => {
+            onSubmit(id, "done");
+          }}
           value="Played"
           color="primary"
         />
@@ -104,26 +130,47 @@ const Requests = () => {
 
   const { user } = useAuthContext();
 
+  const loadAllRequests = useCallback(async () => {
+    if (!user) return;
+    const { result, error } = await getRequests(user.uid);
+    if (error || !result) return console.error(error);
+
+    const pendingRequests = result.filter(
+      (request) => request.status === "pending"
+    );
+    setPendingRequests(pendingRequests);
+
+    const acceptedRequests = result.filter(
+      (request) => request.status === "approved"
+    );
+    setAcceptedRequests(acceptedRequests);
+  }, [user]);
+
   useEffect(() => {
-    (async () => {
-      if (!user) return;
+    loadAllRequests();
+  }, [loadAllRequests, user]);
 
-      const { result, error } = await getRequests(user.uid);
-      if (error || !result) return console.error(error);
+  const handleConfirmRequest = async (
+    id: string,
+    status: RequestData["status"]
+  ) => {
+    const request = [...pendingRequests, ...acceptedRequests].find(
+      (el) => el.id === id
+    );
 
-      const pendingRequests = result.filter(
-        (request) => request.status === "pending"
-      );
-      setPendingRequests(pendingRequests);
+    if (request) {
+      const updatedRequest = { ...request, status: status };
 
-      const acceptedRequests = result.filter(
-        (request) => request.status === "approved"
-      );
-      setAcceptedRequests(acceptedRequests);
-    })();
-  });
+      try {
+        await updateRequest(id, updatedRequest);
+        loadAllRequests();
+      } catch (error) {
+        console.log("update request failed", error);
+      }
+    }
+  };
 
-  if (pendingRequests.length === 0) {
+  if (pendingRequests.length === 0 && acceptedRequests.length == 0) {
     return (
       <div className="bg-dark min-h-screen px-5 py-2 flex flex-col justify-between">
         <div />
@@ -139,21 +186,41 @@ const Requests = () => {
   }
 
   return (
-    <div className="bg-dark h-full px-5 py-2">
-      <div className="pb-5">
-        {pendingRequests.map((request) => (
-          <NewRequest key={request.id} />
+    <div className="bg-dark min-h-screen h-full px-5 py-2 flex flex-col justify-between">
+      <div>
+        <div className="pb-5">
+          {pendingRequests.length > 0 ? (
+            pendingRequests
+              .slice(0, 1)
+              .map((request) => (
+                <NewRequest
+                  key={request.id}
+                  id={request.id}
+                  onSubmit={handleConfirmRequest}
+                  songName={request.songName}
+                  amount={request.amount}
+                  artist={request.artist}
+                  createdAt={request.createdAt}
+                />
+              ))
+          ) : (
+            <div className="py-6">
+              <p className="text-lg text-center">No New Requests</p>
+            </div>
+          )}
+        </div>
+        <hr className="pb-3" />
+        {acceptedRequests.map((request) => (
+          <AcceptedRequest
+            key={request.id}
+            songName={request.songName}
+            amount={request.amount}
+            createdAt={request.createdAt}
+            id={request.id}
+            onSubmit={handleConfirmRequest}
+          />
         ))}
       </div>
-      <hr className="pb-3" />
-      {acceptedRequests.map((request) => (
-        <AcceptedRequest
-          key={request.id}
-          songName={request.songName}
-          amount={request.amount}
-          createdAt={request.createdAt}
-        />
-      ))}
       <IconTabs selectedTab="home" />
     </div>
   );

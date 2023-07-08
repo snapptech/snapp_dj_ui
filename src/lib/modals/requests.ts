@@ -18,9 +18,9 @@ export type RequestData = {
   amount: number;
   songName: string;
   artist: string;
-  status: "approved" | "pending" | "rejected";
-  createdAt: Date;
-  updatedAt: Date;
+  status: "approved" | "pending" | "rejected" | "done";
+  createdAt: number;
+  updatedAt: number;
 };
 
 export const getRequest = async (id: string) => {
