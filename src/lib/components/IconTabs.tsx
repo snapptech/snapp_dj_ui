@@ -7,20 +7,20 @@ export type IIconTabs = {
 
 export const IconTabs = ({ selectedTab }: IIconTabs) => {
   return (
-    <nav>
+    <nav className="flex justify-center">
       <ul className="flex gap-12 items-end">
         <li>
           <Link
             href="/dj/profile"
-            className={classNames("w-12 h-12 p-2 text-gray", {
+            className={classNames("w-12 h-12 inline-block p-2 text-gray", {
               "!text-primary": selectedTab === "profile",
             })}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="49"
-              height="49"
+              viewBox="0 0 49 49"
               fill="none"
+              className="w-full"
             >
               <path
                 stroke="currentColor"
@@ -42,15 +42,15 @@ export const IconTabs = ({ selectedTab }: IIconTabs) => {
         <li>
           <Link
             href="/dj"
-            className={classNames("w-12 h-12 p-2 text-gray", {
+            className={classNames("w-16 h-16 inline-block p-2 text-gray", {
               "!text-primary": selectedTab === "home",
             })}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="71"
-              height="71"
+              viewBox="0 0 71 71"
               fill="none"
+              className="w-full"
             >
               <circle cx="35.5" cy="35.5" r="35.5" fill="currentColor" />
               <path
@@ -64,15 +64,15 @@ export const IconTabs = ({ selectedTab }: IIconTabs) => {
         <li>
           <Link
             href="/dj/settings"
-            className={classNames("w-12 h-12 p-2 text-gray", {
+            className={classNames("w-12 h-12 inline-block p-2 text-gray", {
               "!text-primary": selectedTab === "settings",
             })}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="47"
-              height="49"
+              viewBox="0 0 47 49"
               fill="none"
+              className="w-full"
             >
               <path
                 stroke="currentColor"

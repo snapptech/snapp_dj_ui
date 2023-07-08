@@ -1,14 +1,15 @@
 import Button from "@/lib/components/Button";
+import { IconTabs } from "@/lib/components/IconTabs";
 
 const Info = ({ leftTitle, leftValue, rightTitle, rightValue }: any) => (
   <div className="flex justify-between">
     <div>
       <p className="text-sm">{leftTitle}</p>
-      <p className="text-xl">{leftValue}</p>
+      <p className="text-xl font-bold">{leftValue}</p>
     </div>
     <div className="text-right">
       <p className="text-sm">{rightTitle}</p>
-      <p className="text-xl">{rightValue}</p>
+      <p className="text-xl font-bold">{rightValue}</p>
     </div>
   </div>
 );
@@ -28,18 +29,20 @@ const NewRequest = () => (
       rightTitle="Countdown"
       rightValue="24:59"
     />
-    <div className="flex justify-between">
+    <div className="flex justify-between gap-6 pt-3">
       <Button
         type="submit"
         onClick={console.log}
         value="Accept"
         color="primary"
+        fullWidth
       />
       <Button
         type="submit"
         onClick={console.log}
         value="Decline"
         color="secondary"
+        fullWidth
       />
     </div>
   </>
@@ -51,7 +54,7 @@ const AcceptedRequest = ({
   countdown,
   shouldWarn,
 }: Record<string, string | boolean>) => (
-  <div className="flex justify-between">
+  <div className="flex justify-between pt-3 items-center">
     <div>
       <p className="text-xs">Song</p>
       <p className="text">{song}</p>
@@ -65,15 +68,20 @@ const AcceptedRequest = ({
       <p className={`text ${shouldWarn && "text-error"}`}>{countdown}</p>
     </div>
     <div>
-      <Button type="submit" onClick={console.log} value="Played" />
+      <Button
+        type="submit"
+        onClick={console.log}
+        value="Played"
+        color="primary"
+      />
     </div>
   </div>
 );
 
 const Requests = () => {
   return (
-    <div className="bg-dark h-full p-5">
-      <div className="pb-3">
+    <div className="bg-dark h-full px-5 py-2">
+      <div className="pb-5">
         <NewRequest />
       </div>
       <hr className="pb-3" />
@@ -87,6 +95,7 @@ const Requests = () => {
       <AcceptedRequest song="Titanium" tip="$08,00" countdown="24:59" />
       <AcceptedRequest song="Titanium" tip="$08,00" countdown="24:59" />
       <AcceptedRequest song="Titanium" tip="$08,00" countdown="24:59" />
+      <IconTabs selectedTab="home" />
     </div>
   );
 };
