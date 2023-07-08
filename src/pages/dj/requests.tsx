@@ -21,7 +21,7 @@ const NewRequest = () => (
       leftTitle="Song"
       leftValue="Titanium"
       rightTitle="Tip"
-      rightValue="$10,00"
+      rightValue="€10,00"
     />
     <Info
       leftTitle="Artist"
@@ -65,7 +65,7 @@ const AcceptedRequest = ({
     </div>
     <div>
       <p className="text-xs ">Countdown</p>
-      <p className={`text ${shouldWarn && "text-error"}`}>{countdown}</p>
+      <p className={`text €{shouldWarn && "text-error"}`}>{countdown}</p>
     </div>
     <div>
       <Button
@@ -87,14 +87,14 @@ const Requests = () => {
       <hr className="pb-3" />
       <AcceptedRequest
         song="Titanium"
-        tip="$08,00"
+        tip="€08,00"
         countdown="24:59"
         shouldWarn
       />
-      <AcceptedRequest song="Titanium" tip="$32,00" countdown="24:59" />
-      <AcceptedRequest song="Titanium" tip="$08,00" countdown="24:59" />
-      <AcceptedRequest song="Titanium" tip="$08,00" countdown="24:59" />
-      <AcceptedRequest song="Titanium" tip="$08,00" countdown="24:59" />
+      <AcceptedRequest song="Titanium" tip="€32,00" countdown="24:59" />
+      <AcceptedRequest song="Titanium" tip="€08,00" countdown="24:59" />
+      <AcceptedRequest song="Titanium" tip="€08,00" countdown="24:59" />
+      <AcceptedRequest song="Titanium" tip="€08,00" countdown="24:59" />
       <IconTabs selectedTab="home" />
     </div>
   );
