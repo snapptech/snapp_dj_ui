@@ -4,7 +4,7 @@ import classNames from "classnames";
 type IButton = {
   type: "button" | "submit" | "reset";
   value: string;
-  onClick: () => void;
+  onClick: (event: any) => void;
   color: "primary" | "secondary";
   fullWidth?: boolean;
 };
@@ -13,7 +13,7 @@ const Button = ({ type, value, onClick, color, fullWidth }: IButton) => {
   return (
     <button
       className={classNames(
-        "font-inter text-base font-bold leading-relaxed tracking-tight rounded-lg px-4 py-4",
+        "text-base font-bold leading-relaxed tracking-tight rounded-lg px-4 py-4",
         {
           "bg-primary text-white": color === "primary",
           "border border-white": color === "secondary",
