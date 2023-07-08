@@ -9,6 +9,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { LibraryData, getSongsInLibrary } from "@/lib/modals/library";
 import { DjHeader } from "@/lib/components/DjHeader";
+import { useForm } from "react-hook-form";
 
 const MySongList = () => {
   const {
@@ -18,8 +19,8 @@ const MySongList = () => {
 
   const [data, setData] = useState<LibraryData[]>([]);
   const [selectedSong, setSelectedSong] = useState<LibraryData>();
-  const [input, setInput] = useState("");
   const [dj, setDj] = useState<User>();
+  const { register, handleSubmit } = useForm<{ value: number }>();
 
   useEffect(() => {
     (async () => {
@@ -32,20 +33,20 @@ const MySongList = () => {
   useEffect(() => {
     (async () => {
       const { result, error } = await getSongsInLibrary(String(dj_id));
-
       setData(result || []);
     })();
   }, [dj_id]);
 
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setInput((e.target as HTMLInputElement).value);
-  };
-  const handleSubmit = useCallback(() => {
-    console.log({ input });
-    push(
-      `/user/qr/song?dj_id=${dj_id}&song_id=${selectedSong?.songId}&cents=${input}`
-    );
-  }, [input, push, dj_id, selectedSong?.songId]);
+  const payCustomPrice = useCallback(
+    ({ value = 0 }: { value?: number }) => {
+      push(
+        `/user/qr/song?dj_id=${dj_id}&song_id=${selectedSong?.songId}&cents=${(
+          value * 100
+        ).toFixed()}`
+      );
+    },
+    [push, dj_id, selectedSong?.songId]
+  );
 
   if (!dj)
     return (
@@ -89,9 +90,15 @@ const MySongList = () => {
               />
             </div>
             <div
-              className={classNames("border-b border-gray w-full transition-all rounded-r", {
-                "bg-primary": item.songId === selectedSong?.songId,
-              }, item.songId !== selectedSong?.songId ? 'border-opacity-30' : 'border-opacity-0')}
+              className={classNames(
+                "border-b border-gray w-full transition-all rounded-r",
+                {
+                  "bg-primary": item.songId === selectedSong?.songId,
+                },
+                item.songId !== selectedSong?.songId
+                  ? "border-opacity-30"
+                  : "border-opacity-0"
+              )}
             >
               <h4 className="font-bold">{item.title}</h4>
               <p className=" text-xs  ">{item.artist}</p>
@@ -114,7 +121,7 @@ const MySongList = () => {
               }&cents=${500}`}
               className="text-xl h-full flex items-center justify-start flex-row text-bold border-r border-white w-1/3"
             >
-              5,00
+              €5,00
             </Link>
 
             <Link
@@ -123,17 +130,19 @@ const MySongList = () => {
               }&cents=${1000}`}
               className="text-xl h-full flex items-center justify-start flex-row text-bold border-r border-white w-1/3"
             >
-              10,00
+              €10,00
             </Link>
-            <div className="w-1/3">
+            <form className="w-1/3" onSubmit={handleSubmit(payCustomPrice)}>
               <input
                 className="text-xl flex items-center justify-start flex-row text-bold bg-black h-full"
-                placeholder="0,00$"
-                type="text"
-                onChange={handleChange}
-                onSubmit={handleSubmit}
+                placeholder="€0,00"
+                step="0.01"
+                min="0"
+                type="number"
+                enterKeyHint="send"
+                {...register("value")}
               />
-            </div>
+            </form>
           </div>
         </motion.div>
       )}
