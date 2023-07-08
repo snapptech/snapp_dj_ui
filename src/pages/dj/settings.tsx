@@ -99,7 +99,7 @@ const Settings = () => {
         />
         <p className="text-left w-full">Support: +31 (0)76 231 1062</p>
       </form>
-      <IconTabs selectedTab="settings" />
+      <IconTabs />
     </div>
   );
 };
