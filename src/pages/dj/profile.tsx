@@ -2,7 +2,7 @@ import { Avatar } from "@/lib/components/Avatar";
 import { IconTabs } from "@/lib/components/IconTabs";
 import { Input } from "@/lib/components/Input";
 import Link from "next/link";
-import { useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { User, getUser, updateUser } from "@/lib/modals/user";
 import { useAuthContext } from "@/lib/auth/AuthContext";
@@ -25,7 +25,7 @@ const Info = ({ leftTitle, leftValue, rightTitle, rightValue }: any) => (
 
 let updateUserTimeout: ReturnType<typeof setTimeout>;
 
-const ProfileForm = () => {
+const ProfileForm: FC<{ setUserProfile: any }> = ({ setUserProfile }) => {
   const {
     register,
     setValue,
@@ -37,8 +37,10 @@ const ProfileForm = () => {
 
   useEffect(() => {
     async function updateUserSettings() {
+      console.log("authuser", authUser);
       if (!authUser) return;
       const user = await getUser(authUser.uid);
+      setUserProfile(user.result);
       const userData = user.result;
 
       if (user.error || !userData) return;
@@ -49,7 +51,7 @@ const ProfileForm = () => {
     }
 
     updateUserSettings();
-  }, [authUser, setValue]);
+  }, [authUser, setUserProfile, setValue]);
 
   useEffect(() => {
     const subscription = watch((value, { name, type }) => {
@@ -104,6 +106,8 @@ const ProfileForm = () => {
 };
 
 const Profile = () => {
+  const [userProfile, setUserProfile] = useState<Partial<User>>({});
+
   return (
     <div className="px-5 py-2 min-h-screen flex flex-col justify-between">
       <div>
@@ -131,10 +135,11 @@ const Profile = () => {
         <div className="text-center mt-4">
           <p className="py-2 text-lg">Profile</p>
           <div className="flex justify-center py-3">
-            <Avatar image="/images/profile_pic.png" />
+            <Avatar image={userProfile?.photoUrl} />
           </div>
           <p className="text-lg text-bold">
-            DJ Nifty <span className="text-base">( NL )</span>
+            {userProfile.name}{" "}
+            <span className="text-base">( {userProfile.countryCode} )</span>
           </p>
         </div>
         <div className="py-3">
@@ -145,7 +150,7 @@ const Profile = () => {
             rightValue="€ 240"
           />
         </div>
-        <ProfileForm />
+        <ProfileForm setUserProfile={setUserProfile} />
         <p className="text-bold pt-3">
           Print QR-code:
           <Link href="/dj/code" className="underline">
