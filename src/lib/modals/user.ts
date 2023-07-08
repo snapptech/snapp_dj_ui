@@ -14,6 +14,9 @@ export type User = {
   KvKNumber: string;
   email: string;
   photoUrl: string;
+  businessNumber: string;
+  bankAccName: string;
+  bankAccNumber: string;
   createdAt: Date;
   updatedAt: Date;
 };

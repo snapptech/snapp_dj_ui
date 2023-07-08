@@ -6,6 +6,7 @@ export const Avatar = ({ image }: IAvatar) => {
   return (
     <div className="w-28 h-28 rounded-full overflow-hidden">
       {image ? (
+        // eslint-disable-next-line @next/next/no-img-element
         <img src={image} alt="avatar" />
       ) : (
         <label
