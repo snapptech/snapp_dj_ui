@@ -6,6 +6,7 @@ import { LibraryList } from "@/lib/components/LibraryList";
 import { Song, SongsList } from "@/lib/components/SongsList";
 import { LibraryData, getSongsInLibrary } from "@/lib/modals/library";
 import classNames from "classnames";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -50,15 +51,24 @@ const Library = () => {
         <Input register={register("search")} placeholder="Search" />
       </div>
 
-      {tab === "search" && (
-        <div className="my-16 text-center px-8">
-          <p className="">
-            <span className="font-bold">SongSeek:</span> Can&apos;t Find Your
-            tune? Email Us and We&apos;ll Make It Happen!
-          </p>
-          <p className="text-sm mt-8">songseek@tiptop.com</p>
-        </div>
-      )}
+      <AnimatePresence>
+        {tab === "search" && (
+          <motion.div
+            initial={{ height: 0 }}
+            animate={{ height: "auto" }}
+            exit={{ height: 0 }}
+            className="overflow-hidden"
+          >
+            <div className="my-16 text-center px-8">
+              <p className="">
+                <span className="font-bold">SongSeek:</span> Can&apos;t Find
+                Your tune? Email Us and We&apos;ll Make It Happen!
+              </p>
+              <p className="text-sm mt-8">songseek@tiptop.com</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <ul className="grid grid-cols-2 divide-x divide-stroke/30 border-stroke/30 border-b">
         <li>
@@ -89,25 +99,37 @@ const Library = () => {
         </li>
       </ul>
 
-      {tab === "library" && (
-        <div className="mt-4">
-          <LibraryList
-            library={library}
-            search={watch("search")}
-            onSelect={removeFromLibrary}
-          />
-        </div>
-      )}
+      <AnimatePresence>
+        {tab === "library" && (
+          <motion.div
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+            className="mt-4"
+          >
+            <LibraryList
+              library={library}
+              search={watch("search")}
+              onSelect={removeFromLibrary}
+            />
+          </motion.div>
+        )}
 
-      {tab === "search" && (
-        <div className="mt-4">
-          <SongsList
-            library={library}
-            search={watch("search")}
-            onSelect={addToLibrary}
-          />
-        </div>
-      )}
+        {tab === "search" && (
+          <motion.div
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+            className="mt-4"
+          >
+            <SongsList
+              library={library}
+              search={watch("search")}
+              onSelect={addToLibrary}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <IconTabs selectedTab="library" />
     </div>

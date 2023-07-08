@@ -194,7 +194,7 @@ const Requests = () => {
 
   if (pendingRequests.length === 0 && acceptedRequests.length == 0) {
     return (
-      <div className="bg-dark min-h-screen px-5 py-2 flex flex-col justify-between">
+      <div className="bg-black min-h-screen px-5 py-2 flex flex-col justify-between">
         <div />
         <div className="text-center">
           <p className="text-2xl">No Requests</p>
@@ -208,7 +208,7 @@ const Requests = () => {
   }
 
   return (
-    <div className="bg-dark min-h-screen h-full px-5 py-2 flex flex-col justify-between">
+    <div className="bg-black min-h-screen h-full px-5 py-2 flex flex-col justify-between">
       <div>
         <div className="pb-5">
           {pendingRequests.length > 0 ? (

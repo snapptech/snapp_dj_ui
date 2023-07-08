@@ -8,7 +8,8 @@ export type IIconTabs = {
 export const IconTabs = ({ selectedTab }: IIconTabs) => (
   <>
     <div className="w-full h-20" />
-    <nav className="h-20 fixed bottom-0 inset-x-0 flex justify-center">
+    <nav className="h-20 fixed bottom-0 inset-x-0 flex justify-center ">
+      <div className="absolute -bottom-1 -top-20 pointer-events-none bg-gradient-to-t from-black inset-x-0 -z-[1]" />
       <ul className="flex gap-12 items-end">
         <li>
           <Link
@@ -27,11 +28,11 @@ export const IconTabs = ({ selectedTab }: IIconTabs) => (
                 cx="22.5"
                 cy="22.5"
                 r="21.1"
-                stroke="#fff"
+                stroke="currentColor"
                 strokeWidth="2.8"
               />
               <path
-                stroke="#fff"
+                stroke="currentColor"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
@@ -44,7 +45,7 @@ export const IconTabs = ({ selectedTab }: IIconTabs) => (
         <li>
           <Link
             href="/dj/requests"
-            className={classNames("w-16 h-16 inline-block p-2 text-gray", {
+            className={classNames("w-16 h-16 inline-block p-2 text-white", {
               "!text-primary": selectedTab === "home",
             })}
           >
@@ -56,7 +57,7 @@ export const IconTabs = ({ selectedTab }: IIconTabs) => (
             >
               <circle cx="35.5" cy="35.5" r="35.5" fill="currentColor" />
               <path
-                className="text-dark"
+                className="text-black"
                 fill="currentColor"
                 d="M41.38.501A35.5 35.5 0 0 0 35.5 0C15.886 0 0 15.886 0 35.5c0 7.53 2.367 14.488 6.346 20.26 2.44-3.586 8.07-6.06 14.595-6.06 4.481 0 8.535 1.183 11.44 3.084L41.38.501Zm18.863 9.574c6.13 13.557.753 20.799.753 20.799-4.16-12.514-16.208-14.342-16.208-14.342s-7.926 42.706-7.926 43.243c0 4.626-4.912 8.536-11.582 9.718A35.524 35.524 0 0 0 35.5 71C55.114 71 71 55.114 71 35.5c0-9.969-4.125-18.97-10.757-25.425Z"
               />
@@ -66,7 +67,7 @@ export const IconTabs = ({ selectedTab }: IIconTabs) => (
         <li>
           <Link
             href="/dj/profile"
-            className={classNames("w-12 h-12 inline-block p-2 text-gray", {
+            className={classNames("w-12 h-12 inline-block p-2 text-white", {
               "!text-primary": selectedTab === "profile",
             })}
           >
