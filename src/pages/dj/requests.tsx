@@ -5,6 +5,18 @@ import { IconTabs } from "@/lib/components/IconTabs";
 import { RequestData, getRequests, updateRequest } from "@/lib/modals/requests";
 import { FC, useCallback, useEffect, useState } from "react";
 
+const getCountDown = (createdAt: number) => {
+  const now = new Date();
+  const created = new Date(createdAt * 1000);
+  const timeElapsed = now.getTime() - created.getTime();
+
+  const remainingTime = 25 * 60 * 1000 - timeElapsed;
+
+  const minutes = Math.floor(remainingTime / 1000 / 60);
+  const seconds = Math.floor(remainingTime / 1000) % 60;
+  return `${minutes < 0 ? 0 : minutes}:${seconds < 0 ? 0 : seconds}`;
+};
+
 const Info = ({ leftTitle, leftValue, rightTitle, rightValue }: any) => (
   <div className="flex justify-between">
     <div>
@@ -31,39 +43,51 @@ const NewRequest: FC<NewRequestProps> = ({
   artist,
   amount,
   onSubmit,
+  createdAt,
   id,
-}) => (
-  <>
-    <Info
-      leftTitle="Song"
-      leftValue={songName}
-      rightTitle="Tip"
-      rightValue={`€${amount}`}
-    />
-    <Info
-      leftTitle="Artist"
-      leftValue={artist}
-      rightTitle="Countdown"
-      rightValue="24:59"
-    />
-    <div className="flex justify-between gap-6 pt-3">
-      <Button
-        type="submit"
-        onClick={() => onSubmit(id, "approved")}
-        value="Accept"
-        color="primary"
-        fullWidth
+}) => {
+  const [countdown, setCountdown] = useState("00:00");
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCountdown(getCountDown(createdAt));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  });
+  return (
+    <>
+      <Info
+        leftTitle="Song"
+        leftValue={songName}
+        rightTitle="Tip"
+        rightValue={`€${amount}`}
       />
-      <Button
-        type="submit"
-        onClick={() => onSubmit(id, "rejected")}
-        value="Decline"
-        color="secondary"
-        fullWidth
+      <Info
+        leftTitle="Artist"
+        leftValue={artist}
+        rightTitle="Countdown"
+        rightValue={countdown}
       />
-    </div>
-  </>
-);
+      <div className="flex justify-between gap-6 pt-3">
+        <Button
+          type="submit"
+          onClick={() => onSubmit(id, "approved")}
+          value="Accept"
+          color="primary"
+          fullWidth
+        />
+        <Button
+          type="submit"
+          onClick={() => onSubmit(id, "rejected")}
+          value="Decline"
+          color="secondary"
+          fullWidth
+        />
+      </div>
+    </>
+  );
+};
 
 type AcceptedRequestProps = Pick<
   RequestData,
@@ -82,15 +106,7 @@ const AcceptedRequest: FC<AcceptedRequestProps> = ({
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const now = new Date();
-      const created = new Date(createdAt * 1000);
-      const timeElapsed = now.getTime() - created.getTime();
-
-      const remainingTime = 25 * 60 * 1000 - timeElapsed;
-
-      const minutes = Math.floor(remainingTime / 1000 / 60);
-      const seconds = Math.floor(remainingTime / 1000) % 60;
-      setCountdown(`${minutes < 0 ? 0 : minutes}:${seconds < 0 ? 0 : seconds}`);
+      setCountdown(getCountDown(createdAt));
     }, 1000);
 
     return () => clearInterval(interval);
