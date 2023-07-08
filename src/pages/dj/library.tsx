@@ -83,7 +83,7 @@ const Library = () => {
         )}
       </AnimatePresence>
 
-      <ul className="grid grid-cols-2 divide-x divide-stroke/30 border-stroke/30 border-b">
+      <ul className="sticky top-0 bg-black grid -mx-8 grid-cols-2 divide-x divide-stroke/30 border-stroke/30 border-b">
         <li>
           <button
             className={classNames(
