@@ -44,7 +44,7 @@ function DetailsForm({}: DetailsFormProps) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col container gap-5 text-center"
+      className="flex flex-col container gap-5 text-center px-8 h-full py-6"
     >
       <p className="text-3xl bold">Create an account to start earning!</p>
 
@@ -100,7 +100,7 @@ function DetailsForm({}: DetailsFormProps) {
       <input
         type="submit"
         value="Next"
-        className="bg-primary text-white bold text-xl p-4 w-full rounded-2xl"
+        className="bg-primary text-white bold text-xl p-4 w-full rounded-2xl mt-auto"
       />
     </form>
   );
