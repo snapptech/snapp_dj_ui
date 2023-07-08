@@ -1,5 +1,9 @@
+import { useAuthContext } from "@/lib/auth/AuthContext";
+import { AuthLayoutWrapper } from "@/lib/auth/AuthLayout";
 import Button from "@/lib/components/Button";
 import { IconTabs } from "@/lib/components/IconTabs";
+import { RequestData, getRequests } from "@/lib/modals/requests";
+import { useEffect, useState } from "react";
 
 const Info = ({ leftTitle, leftValue, rightTitle, rightValue }: any) => (
   <div className="flex justify-between">
@@ -49,55 +53,95 @@ const NewRequest = () => (
 );
 
 const AcceptedRequest = ({
-  song,
-  tip,
-  countdown,
-  shouldWarn,
-}: Record<string, string | boolean>) => (
-  <div className="flex justify-between pt-3 items-center">
-    <div>
-      <p className="text-xs">Song</p>
-      <p className="text">{song}</p>
+  songName,
+  amount,
+  createdAt,
+}: Pick<RequestData, "songName" | "amount" | "createdAt">) => {
+  const [countdown, setCountdown] = useState("00:00");
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date();
+      const created = createdAt;
+      const diff = now.getTime() - created.getTime();
+      const minutes = Math.floor(diff / 1000 / 60);
+      const seconds = Math.floor(diff / 1000) % 60;
+      setCountdown(`${minutes < 0 ? 0 : minutes}:${seconds < 0 ? 0 : seconds}`);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  });
+
+  return (
+    <div className="flex justify-between pt-3 items-center">
+      <div>
+        <p className="text-xs">Song</p>
+        <p className="text">{songName}</p>
+      </div>
+      <div>
+        <p className="text-xs">Tip</p>
+        <p className="text">{amount}</p>
+      </div>
+      <div>
+        <p className="text-xs ">Countdown</p>
+        <p className={`text €{shouldWarn && "text-error"}`}>{countdown}</p>
+      </div>
+      <div>
+        <Button
+          type="submit"
+          onClick={console.log}
+          value="Played"
+          color="primary"
+        />
+      </div>
     </div>
-    <div>
-      <p className="text-xs">Tip</p>
-      <p className="text">{tip}</p>
-    </div>
-    <div>
-      <p className="text-xs ">Countdown</p>
-      <p className={`text €{shouldWarn && "text-error"}`}>{countdown}</p>
-    </div>
-    <div>
-      <Button
-        type="submit"
-        onClick={console.log}
-        value="Played"
-        color="primary"
-      />
-    </div>
-  </div>
-);
+  );
+};
 
 const Requests = () => {
+  const [pendingRequests, setPendingRequests] = useState<RequestData[]>([]);
+  const [acceptedRequests, setAcceptedRequests] = useState<RequestData[]>([]);
+
+  const { user } = useAuthContext();
+
+  useEffect(() => {
+    (async () => {
+      if (!user) return;
+
+      const { result, error } = await getRequests(user.uid);
+      if (error || !result) return console.error(error);
+
+      const pendingRequests = result.filter(
+        (request) => request.status === "pending"
+      );
+      setPendingRequests(pendingRequests);
+
+      const acceptedRequests = result.filter(
+        (request) => request.status === "approved"
+      );
+      setAcceptedRequests(acceptedRequests);
+    })();
+  });
+
   return (
     <div className="bg-dark h-full px-5 py-2">
       <div className="pb-5">
-        <NewRequest />
+        {pendingRequests.map((request) => (
+          <NewRequest key={request.id} />
+        ))}
       </div>
       <hr className="pb-3" />
-      <AcceptedRequest
-        song="Titanium"
-        tip="€08,00"
-        countdown="24:59"
-        shouldWarn
-      />
-      <AcceptedRequest song="Titanium" tip="€32,00" countdown="24:59" />
-      <AcceptedRequest song="Titanium" tip="€08,00" countdown="24:59" />
-      <AcceptedRequest song="Titanium" tip="€08,00" countdown="24:59" />
-      <AcceptedRequest song="Titanium" tip="€08,00" countdown="24:59" />
+      {acceptedRequests.map((request) => (
+        <AcceptedRequest
+          key={request.id}
+          songName={request.songName}
+          amount={request.amount}
+          createdAt={request.createdAt}
+        />
+      ))}
       <IconTabs selectedTab="home" />
     </div>
   );
 };
 
-export default Requests;
+export default AuthLayoutWrapper(Requests);

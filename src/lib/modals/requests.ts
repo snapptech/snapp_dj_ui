@@ -11,7 +11,7 @@ import { db } from "./db";
 
 const REQUEST_COLLECTION = "request";
 
-export type Request = {
+export type RequestData = {
   id: string;
   userId: string;
   email: string;
@@ -30,7 +30,7 @@ export const getRequest = async (id: string) => {
   let error = null;
 
   try {
-    result = (await getDoc(docRef)).data() as Request;
+    result = (await getDoc(docRef)).data() as RequestData;
   } catch (e) {
     error = e;
   }
@@ -48,19 +48,19 @@ export const getRequests = async (userId: string) => {
     const q = query(servicesRef, where("userId", "==", userId));
     result = await getDocs(q);
 
-    const response: Request[] = [];
+    const response: RequestData[] = [];
     result.forEach((doc) => {
-      response.push(doc.data() as Request);
+      response.push(doc.data() as RequestData);
     });
     result = response;
   } catch (e) {
     error = e;
   }
 
-  return { result, error };
+  return { result: result as RequestData[], error };
 };
 
-export const updateRequest = async (id: string, data: Partial<Request>) => {
+export const updateRequest = async (id: string, data: Partial<RequestData>) => {
   let result = null;
   let error = null;
 
