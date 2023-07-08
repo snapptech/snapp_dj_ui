@@ -61,7 +61,7 @@ const ProfileForm = () => {
         clearTimeout(updateUserTimeout);
       }
     };
-  }, [watch]);
+  }, [authUser, watch]);
 
   return (
     <form>

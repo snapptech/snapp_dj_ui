@@ -77,7 +77,7 @@ const SongPage = () => {
         register={register("email")}
       />
       <p className="w-full text-center text-xs mb-6">
-        Email needed for refund if DJ doesn't play your song within 30 minutes.
+        Email needed for refund if DJ doesn&apos;t play your song within 30 minutes.
       </p>
 
       <Button

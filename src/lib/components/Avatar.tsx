@@ -11,6 +11,7 @@ export const Avatar = ({ image, onChange }: IAvatar) => {
         htmlFor="avatar-input"
       >
         {image ? (
+          // eslint-disable-next-line @next/next/no-img-element
           <img src={image} alt="avatar" />
         ) : (
           <svg
