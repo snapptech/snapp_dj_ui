@@ -98,6 +98,7 @@ body {
     max-height: calc(100vh - 200px);
     margin: 0 auto;
     padding: 50px;
+    position:relative;
   }
 
   body > div:has(> div.mobile) {
