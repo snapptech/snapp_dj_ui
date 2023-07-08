@@ -9,8 +9,11 @@ const MySongList = () => {
 
     return (
         <ul>
-            {data.songs.map((item: any) => (
-                <><h4 key={item.title}> </h4><p>{item.artist}</p></>
+            {data.songs.map((item: any, index) => (
+                <>
+                    <h4 key={index}> {item.title}</h4>
+                    <p>{item.artist}</p>
+                </>
             ))}
         </ul>
     );
