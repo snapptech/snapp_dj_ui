@@ -2,8 +2,9 @@ import { useAuthContext } from "@/lib/auth/AuthContext";
 import { AuthLayoutWrapper } from "@/lib/auth/AuthLayout";
 import { IconTabs } from "@/lib/components/IconTabs";
 import { Input } from "@/lib/components/Input";
+import { getRequests } from "@/lib/modals/requests";
 import { User, getUser } from "@/lib/modals/user";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 const Settings = () => {
@@ -14,6 +15,27 @@ const Settings = () => {
   } = useForm<User>();
 
   const { user: authUser } = useAuthContext();
+
+  const [amountEarned, setAmountEarned] = useState(0);
+
+  const loadAllRequests = useCallback(async () => {
+    if (!authUser) return;
+    const { result, error } = await getRequests(authUser.uid);
+    if (error || !result) return console.error(error);
+
+    const completedRequestsData = result.filter(
+      (request) => request.status === "done"
+    );
+    const calculatedAmountEarned = completedRequestsData.reduce(
+      (acc, cur) => acc + cur.amount,
+      0
+    );
+    setAmountEarned(calculatedAmountEarned);
+  }, [authUser]);
+
+  useEffect(() => {
+    loadAllRequests();
+  }, [loadAllRequests]);
 
   useEffect(() => {
     async function updateUserSettings() {
@@ -40,7 +62,7 @@ const Settings = () => {
 
       <div className="py-8">
         <p className="text-md">Pay out</p>
-        <p className="text-3xl font-bold">€ 1200</p>
+        <p className="text-3xl font-bold">€ {(amountEarned / 100).toFixed(2).replace('.', ',')}</p>
       </div>
 
       <p className="text-xl mb-2">
