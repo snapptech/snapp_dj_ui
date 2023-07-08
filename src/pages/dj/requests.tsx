@@ -123,6 +123,21 @@ const Requests = () => {
     })();
   });
 
+  if (pendingRequests.length === 0) {
+    return (
+      <div className="bg-dark min-h-screen px-5 py-2 flex flex-col justify-between">
+        <div />
+        <div className="text-center">
+          <p className="text-2xl">No Requests</p>
+
+          <p className="text-sm">You do not have any requests for now. </p>
+          <p className="text-sm"> Please wait for users to request a song</p>
+        </div>
+        <IconTabs selectedTab="home" />
+      </div>
+    );
+  }
+
   return (
     <div className="bg-dark h-full px-5 py-2">
       <div className="pb-5">
