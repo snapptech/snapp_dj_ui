@@ -176,7 +176,9 @@ const Profile = () => {
             leftTitle="Request(s)"
             leftValue={completedRequests.length}
             rightTitle="Earnings"
-            rightValue={`€ ${amountEarned}`}
+            rightValue={`€ ${(amountEarned / 100)
+              .toFixed(2)
+              .replace(".", ",")}`}
           />
         </div>
         <ProfileForm setUserProfile={setUserProfile} authUser={authUser} />
