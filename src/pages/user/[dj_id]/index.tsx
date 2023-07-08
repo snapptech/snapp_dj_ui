@@ -1,17 +1,24 @@
 import songs from "@/data/songs.json";
 import { SongDisplayPic } from "@/lib/components/SongDisplayPic";
 import { Avatar } from "@/lib/components/Avatar";
-import { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { User, getUser } from "@/lib/modals/user";
+import { useRouter } from "next/router";
 import { LoadingSpinner } from "@/lib/components/LoadingSpinner";
+
+type Song = {
+  id: string;
+  name: string;
+  artist: string;
+};
 
 const MySongList = () => {
   const {
     query: { dj_id },
   } = useRouter();
+
   const [data, setData] = useState(songs);
-  const [selectedSong, setSelectedSong] = useState<number[]>([]);
+  const [selectedSong, setSelectedSong] = useState<Song[]>([]);
   const [input, setInput] = useState("");
   const [dj, setDj] = useState<User>();
 
@@ -22,9 +29,8 @@ const MySongList = () => {
       setDj(result || undefined);
     })();
   }, [dj_id]);
-
-  const handleChange = (e) => {
-    setInput(e.target.value);
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setInput((e.target as HTMLInputElement).value);
   };
   const onSelectSong = (item: any) => {
     setSelectedSong((prevState) => [...prevState, item]);
@@ -41,11 +47,12 @@ const MySongList = () => {
   return (
     <main className="px-5 py-2 min-h-screen flex flex-col justify-between">
       <div className="flex flex-row justify-center flex-1 items-center">
-        <Avatar image={dj.photoUrl} onChange={() => {}} />
+        <Avatar image={dj?.photoUrl} onChange={() => {}} />
       </div>
       <div className="flex flex-row justify-center flex-1 items-center">
         <p className="text-lg text-bold">
-          {dj.artistName} <span className="text-base">({dj.countryCode})</span>
+          {dj?.artistName}{" "}
+          <span className="text-base">( {dj?.countryCode} )</span>
         </p>
       </div>
 
@@ -77,7 +84,6 @@ const MySongList = () => {
           <h2 className="text-xl text-bold border-r border-white pr-5 pl-5 py-4 mx-5">
             10,00
           </h2>
-
           <input
             className="text-xl text-bold pl-5 py-4 w-1/5 bg-black border rounded-[15%] border-white"
             placeholder="Enter"
