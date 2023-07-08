@@ -1,24 +1,21 @@
-import "react-phone-input-2/lib/style.css";
+import 'react-phone-input-2/lib/style.css';
 
-import { useAuthContext } from "@/lib/auth/AuthContext";
-import AuthLayout from "@/lib/auth/AuthLayout";
-import { updateUser, User } from "@/lib/modals/user";
-import classNames from "classnames";
-import Link from "next/link";
-import { useCallback, useState } from "react";
-import { CountryDropdown } from "react-country-region-selector";
-import { Controller, useForm } from "react-hook-form";
-import { Input } from "@/lib/components/Input";
-import { useRouter } from "next/router";
+import { useAuthContext } from '@/lib/auth/AuthContext';
+import { AuthLayoutWrapper } from '@/lib/auth/AuthLayout';
+import { Input } from '@/lib/components/Input';
+import { updateUser, User } from '@/lib/modals/user';
+import classNames from 'classnames';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useCallback } from 'react';
+import { CountryDropdown } from 'react-country-region-selector';
+import { Controller, useForm } from 'react-hook-form';
 
-type DetailsFormProps = {};
-
-export const Form = () => {
+export const DetailsForm = () => {
   const {
     register,
     control,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<User>();
 
@@ -32,7 +29,7 @@ export const Form = () => {
       await updateUser(authUser.uid, user);
       push("/dj/signup/pictures");
     },
-    [authUser]
+    [authUser, push]
   );
 
   return (
@@ -111,12 +108,4 @@ export const Form = () => {
   );
 };
 
-function DetailsForm({}: DetailsFormProps) {
-  return (
-    <AuthLayout>
-      <Form />
-    </AuthLayout>
-  );
-}
-
-export default DetailsForm;
+export default AuthLayoutWrapper(DetailsForm);

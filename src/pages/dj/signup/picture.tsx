@@ -1,20 +1,12 @@
-import 'react-phone-input-2/lib/style.css';
+import "react-phone-input-2/lib/style.css";
 
-import AuthLayout from '@/lib/auth/AuthLayout';
-import { useCallback, useState } from 'react';
+import AuthLayout, { AuthLayoutWrapper } from "@/lib/auth/AuthLayout";
+import { useCallback, useState } from "react";
 
 type PictureFormProps = {};
 
-export const Form = () => {
-  return <>Here comes pictuer</>;
-};
-
 function PictureForm({}: PictureFormProps) {
-  return (
-    <AuthLayout>
-      <Form />
-    </AuthLayout>
-  );
+  return <>Here comes pictuer</>;
 }
 
-export default PictureForm;
+export default AuthLayoutWrapper(PictureForm);
